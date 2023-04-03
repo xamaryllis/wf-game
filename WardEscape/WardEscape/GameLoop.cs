@@ -1,15 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using WardEscape.Utils;
+using WardEscape.Objects;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace WardEscape
 {
-    public class Game1 : Game
+    public class GameLoop : Game
     {
-        private Hero hero;
-        private GraphicsDeviceManager _graphics;
+        private Character character;
         private SpriteBatch _spriteBatch;
-        public Game1()
+        private GraphicsDeviceManager _graphics;
+        public GameLoop()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -18,20 +22,26 @@ namespace WardEscape
 
         protected override void Initialize()
         {
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = Constants.WIDTH;
+            _graphics.PreferredBackBufferHeight = Constants.HEIGHT;
+            _graphics.ApplyChanges();
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            hero = new Hero(Content.Load<Texture2D>("Edna_1"));
+
+            character = new Character(Point.Zero, new Vector2(81, 200), Content.Load<Texture2D>("Edna_1"));
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
-            hero.Update();
+            character.Update();
             base.Update(gameTime);
         }
 
@@ -40,10 +50,15 @@ namespace WardEscape
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            hero.Draw(_spriteBatch);
+
+            character.Draw(gameTime, _spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
+        public void ChangeGameScene(Point characterPosition) { }
     }
 }
+
