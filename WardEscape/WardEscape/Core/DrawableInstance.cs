@@ -8,7 +8,7 @@ namespace WardEscape.Core
         protected Rectangle _hitbox;
         public Rectangle Hitbox => _hitbox;
 
-        private Texture2D Sprite { get; set; }
+        protected Texture2D Sprite { get; set; }
 
         public DrawableInstance(Point position, Vector2 size, Texture2D sprite)
         {

@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WardEscape.Scenes
 {
-    internal class StartingScene : GameScene
+    internal class ToiletScene : GameScene
     {
-        public static readonly string NAME = "StartingScene";
-        public StartingScene(SceneManager manager, ContentManager content, Character character)
-            : base(content.Load<Texture2D>("ScenesBackground/StartingScene"))
+        public static readonly string NAME = "ToiletScene";
+        public ToiletScene(SceneManager manager, ContentManager content, Character character)
+            : base(content.Load<Texture2D>("ScenesBackground/ToiletScene"))
         {
             InitTriggable(manager, character);
         }
@@ -20,12 +20,12 @@ namespace WardEscape.Scenes
         private void InitTriggable(SceneManager manager, Character character)
         {
             SceneTrigger trigger = new(
-                new Point(Constants.WIDTH, 0),
+                new Point(-20, 0),
                 new Vector2(20, Constants.HEIGHT),
-                () => 
+                () =>
                 {
                     manager.ChangeScene(HallScene.NAME);
-                    character.MoveTo(new Point(500, 400));
+                    character.MoveTo(new Point(Constants.WIDTH - 100, 400));
                 }
             );
             triggableInstances.Add(trigger);

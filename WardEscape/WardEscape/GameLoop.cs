@@ -37,8 +37,12 @@ namespace WardEscape
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            sceneManager.AddScene(StartingScene.NAME, new StartingScene(sceneManager, Content));
-            character = new Character(Point.Zero, new Vector2(81, 200), Content.Load<Texture2D>("Character/Character1"));
+            character = new Character(new Point(0, 400), new Vector2(81, 200), Content.Load<Texture2D>("Character/Character1"));
+
+            sceneManager.AddScene(HallScene.NAME, new HallScene(sceneManager, Content, character));
+            sceneManager.AddScene(ToiletScene.NAME, new ToiletScene(sceneManager, Content, character));
+            sceneManager.AddScene(StairsScene.NAME, new StairsScene(sceneManager, Content, character));
+            sceneManager.AddScene(StartingScene.NAME, new StartingScene(sceneManager, Content, character));
 
             sceneManager.ChangeScene(StartingScene.NAME);
         }
