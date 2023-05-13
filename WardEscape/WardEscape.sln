@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WardEscape", "WardEscape\WardEscape.csproj", "{678896F5-6DD9-4D84-9594-0B70D2AF71F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WardEscape", "WardEscape\WardEscape.csproj", "{0B80086F-9F66-46B7-A81B-F0820A6D3CC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{678896F5-6DD9-4D84-9594-0B70D2AF71F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{678896F5-6DD9-4D84-9594-0B70D2AF71F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{678896F5-6DD9-4D84-9594-0B70D2AF71F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{678896F5-6DD9-4D84-9594-0B70D2AF71F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B80086F-9F66-46B7-A81B-F0820A6D3CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B80086F-9F66-46B7-A81B-F0820A6D3CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B80086F-9F66-46B7-A81B-F0820A6D3CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B80086F-9F66-46B7-A81B-F0820A6D3CC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0B7EF29D-9773-4154-A5CD-FB06EF7BD37A}
+		SolutionGuid = {57604270-6F7B-44FD-B8AD-D7D8ADC06730}
 	EndGlobalSection
 EndGlobal
