@@ -20,9 +20,7 @@ namespace WardEscape.GameCore
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) 
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(Sprite, Hitbox, Color.White);
-            spriteBatch.End();
         }
     }
 }

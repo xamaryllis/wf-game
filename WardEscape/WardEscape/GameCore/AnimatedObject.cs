@@ -7,6 +7,7 @@ namespace WardEscape.GameCore
     internal class AnimatedObject : DrawableObject
     {
         int animationCount = 0;
+        static int MILLISECOND = 1000;
         List<Texture2D> Sprites { get; set; }
 
         public AnimatedObject(Point position, Point size, List<Texture2D> sprites)
@@ -22,11 +23,16 @@ namespace WardEscape.GameCore
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (gameTime.TotalGameTime.Ticks % Sprites.Count == 0) 
+            Animate(gameTime); base.Draw(gameTime, spriteBatch);
+        }
+
+        protected void Animate(GameTime gameTime) 
+        {
+            if (gameTime.TotalGameTime.Milliseconds % (MILLISECOND / Sprites.Count) == 0)
             {
                 animationCount = (animationCount + 1) % Sprites.Count;
             }
-            Sprite = Sprites[animationCount]; base.Draw(gameTime, spriteBatch);
+            Sprite = Sprites[animationCount];
         }
     }
 }

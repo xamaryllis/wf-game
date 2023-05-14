@@ -9,7 +9,7 @@ namespace WardEscape.SpecialTypes
     internal class DrawablePhysicsObject
     {
         #region AuxTypes
-        private class DrawableObjectAux : DrawableObject
+        protected class DrawableObjectAux : DrawableObject
         {
             DrawablePhysicsObject drawablePhysicsPart;
 
@@ -25,7 +25,7 @@ namespace WardEscape.SpecialTypes
             }
         }
 
-        private class PhysicsObjectAux : PhysicsObject
+        protected class PhysicsObjectAux : PhysicsObject
         {
             DrawablePhysicsObject drawablePhysicsPart;
 
@@ -42,16 +42,27 @@ namespace WardEscape.SpecialTypes
         }
         #endregion
 
-        RectangleObject hitbox;
-        PhysicsObjectAux physicsObject;
-        DrawableObjectAux drawableObject;
+        protected RectangleObject hitbox;
+        protected PhysicsObjectAux physicsObject;
+        protected DrawableObjectAux drawableObject;
+
+        #region CreationHooks
+        protected virtual PhysicsObjectAux PhysicsAux(RectangleObject hitbox, DrawablePhysicsObject obj)
+        {
+            return new(hitbox, this);
+        }
+        protected virtual DrawableObjectAux DrawableAux(RectangleObject hitbox, Texture2D sprite, DrawablePhysicsObject obj)
+        {
+            return new(hitbox, sprite, this);
+        }
+        #endregion
 
         public DrawablePhysicsObject(Point position, Point size, Texture2D sprite)
         {
             hitbox = new(position, size);
             
-            physicsObject = new(hitbox, this);
-            drawableObject = new(hitbox, sprite, this);
+            physicsObject = PhysicsAux(hitbox, this);
+            drawableObject = DrawableAux(hitbox, sprite, this);
         }
 
         public static implicit operator PhysicsObject(DrawablePhysicsObject obj)
@@ -71,11 +82,14 @@ namespace WardEscape.SpecialTypes
         }
         public RectangleObject Hitbox { get => hitbox; }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
             => drawableObject.Draw(gameTime, spriteBatch);
 
         public void MoveObject()
             => physicsObject.MoveObject();
+
+        public void MoveObject(Vector2 vector)
+            => physicsObject.MoveObject(vector);
 
         public Vector2 SolveCollision(PhysicsObject physicsObj)
             => physicsObject.SolveCollision(physicsObj);

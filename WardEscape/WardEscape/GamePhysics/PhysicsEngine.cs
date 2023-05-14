@@ -35,7 +35,8 @@ namespace WardEscape.GamePhysics
         }
         private Vector2 UpdateVelocity(PhysicsObject obj, Vector2 collision) 
         {
-            if (collision.Y != 0) return Vector2.Zero; // Приоритет
+            if (collision.Y > 0) return GRAVITY;
+            if (collision.Y < 0) return Vector2.Zero;
             if (collision.X != 0) return new Vector2(0, obj.Velocity.Y);
 
             return obj.Velocity;

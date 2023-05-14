@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using WardEscape.GameObjects;
 using WardEscape.GamePhysics;
 using WardEscape.SpecialTypes;
 
@@ -13,36 +15,24 @@ namespace WardEscape
         public Base(Point position, Point size, Texture2D sprite) 
             : base(position, size, sprite)
         { }
-
-        public void Update(GameTime gameTime) 
-        {
-            KeyboardState state = Keyboard.GetState();
-
-            if (state.IsKeyDown(Keys.A))
-            {
-                Velocity = new Vector2(-5, Velocity.Y);
-            }
-
-            if (state.IsKeyDown(Keys.D))
-            {
-                Velocity = new Vector2(5, Velocity.Y);
-            }
-
-            if (state.IsKeyDown(Keys.Space) && Velocity.Y == 0) 
-            {
-                Velocity = new Vector2(Velocity.X, -20);
-            }
-        }
+    }
+    class AnimatedBase : GameHero
+    {
+        public AnimatedBase(ContentManager content, Point position) 
+            : base(content, position)
+        { }
     }
     public class Main : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Base _basic1;
         private Base _basic2;
         private Base _basic3;
         private Base _basic4;
+        
+        private AnimatedBase _basic1;
+
         private PhysicsEngine _physicsEngine;
 
         public Main()
@@ -54,7 +44,10 @@ namespace WardEscape
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = 1050;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -77,11 +70,11 @@ namespace WardEscape
             }
             Texture2D rect2 = new(GraphicsDevice, 1000, 1000); rect2.SetData(data2);
 
-            _basic1 = new(new(250, 0), new(100, 100), rect1);
+            _basic1 = new(Content, new(250, 200));
             
             _basic2 = new(new(0, 0), new(100, 1000), rect2);
-            _basic3 = new(new(700, 0), new(100, 1000), rect2);
-            _basic4 = new(new(-200, 400), new(1000, 1000), rect2);
+            _basic3 = new(new(0, 0), new(1000, 150), rect2);
+            _basic4 = new(new(-200, 600), new(1000, 1000), rect2);
 
             _physicsEngine = new(
                 new List<Rectangle>() { _basic2.Hitbox, _basic3.Hitbox, _basic4.Hitbox }, 
@@ -105,11 +98,14 @@ namespace WardEscape
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
             _basic1.Draw(gameTime, _spriteBatch);
             _basic2.Draw(gameTime, _spriteBatch);
             _basic3.Draw(gameTime, _spriteBatch);
             _basic4.Draw(gameTime, _spriteBatch);
+            
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
