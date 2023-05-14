@@ -4,21 +4,18 @@ namespace WardEscape.GameCore
 {
     internal class BaseObject
     {
-        public Rectangle Hitbox { get; protected set; }
+        RectangleObject hitbox;
+        public RectangleObject Hitbox { get => hitbox; }
         
-        public BaseObject(Rectangle hitbox)
-        {
-            Hitbox = hitbox;
-        }
         public BaseObject(Point position, Point size) 
         {
-            Hitbox = new Rectangle(position, size);
+            hitbox = new RectangleObject(position, size);
+        }
+        public BaseObject(RectangleObject rectangleObject)
+        {
+            hitbox = rectangleObject;
         }
 
-        public void OffsetObject(Vector2 offset) 
-        {
-            Rectangle hitbox = Hitbox;
-            hitbox.Offset(offset); Hitbox = hitbox;
-        }
+        public void OffsetObject(Vector2 offset) => hitbox.Offset(offset);
     }
 }

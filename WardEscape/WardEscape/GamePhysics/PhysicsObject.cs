@@ -8,18 +8,21 @@ namespace WardEscape.GamePhysics
     internal class PhysicsObject : BaseObject
     {
         public Vector2 Velocity { get; set; }
-        
+
+        public PhysicsObject(Rectangle rectangle)
+            : base(new RectangleObject(rectangle))
+        { }
         public PhysicsObject(Point position, Point size) 
             : base(position, size) 
         { }
-        public PhysicsObject(Rectangle rectangle) 
-            : base(rectangle) 
+        public PhysicsObject(RectangleObject rectangleObject) 
+            : base(rectangleObject) 
         { }
+
+
+        public void MoveObject() => OffsetObject(Velocity);
+        public void MoveObject(Vector2 vector) => OffsetObject(vector);
         
-        public void MoveObject()
-        {
-            OffsetObject(Velocity);
-        }
         public Vector2 SolveCollision(PhysicsObject physicsObj)
         {
             if (Hitbox.Intersects(physicsObj.Hitbox))

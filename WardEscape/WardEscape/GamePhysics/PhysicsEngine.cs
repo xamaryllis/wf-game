@@ -15,6 +15,7 @@ namespace WardEscape.GamePhysics
             this.gameBounds = gameBounds;
             this.physicsObjects = physicsObjects;
         }
+
         public void Update(GameTime gameTime) 
         {   
             foreach (var physicsObj in physicsObjects)
@@ -22,19 +23,22 @@ namespace WardEscape.GamePhysics
                 Gravity(physicsObj);
 
                 var collision = SolveCollisions(physicsObj);
+                physicsObj.MoveObject(collision);
 
-                if (collision != Vector2.Zero) 
-                {
-                    physicsObj.Velocity = collision;
-                    physicsObj.MoveObject(); 
-                    physicsObj.Velocity = Vector2.Zero;
-                }
+                physicsObj.Velocity = UpdateVelocity(physicsObj, collision);
             }
         }
         private void Gravity(PhysicsObject physObj) 
         {
             physObj.Velocity += GRAVITY;
             physObj.MoveObject();
+        }
+        private Vector2 UpdateVelocity(PhysicsObject obj, Vector2 collision) 
+        {
+            if (collision.Y != 0) return Vector2.Zero; // Приоритет
+            if (collision.X != 0) return new Vector2(0, obj.Velocity.Y);
+
+            return obj.Velocity;
         }
         private Vector2 SolveCollisions(PhysicsObject physObj) 
         {
