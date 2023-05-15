@@ -1,24 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using WardEscape.GameCore;
+
 namespace WardEscape.GamePhysics
 {
     internal class PhysicsEngine
     {
-        List<Rectangle> gameBounds;
-        List<PhysicsObject> physicsObjects;
-
         static Vector2 GRAVITY = new(0, 0.98f);
 
-        public PhysicsEngine(List<Rectangle> gameBounds, List<PhysicsObject> physicsObjects)
+        public List<RectangleObject> GameBounds { get; set; }
+        public List<PhysicsObject> PhysicsObjects { get; set; }
+
+        public PhysicsEngine(List<RectangleObject> gameBounds, List<PhysicsObject> physicsObjects)
         {
-            this.gameBounds = gameBounds;
-            this.physicsObjects = physicsObjects;
+            GameBounds = gameBounds;
+            PhysicsObjects = physicsObjects;
         }
 
         public void Update(GameTime gameTime) 
         {   
-            foreach (var physicsObj in physicsObjects)
+            foreach (var physicsObj in PhysicsObjects)
             {
                 Gravity(physicsObj);
 
@@ -28,6 +30,7 @@ namespace WardEscape.GamePhysics
                 physicsObj.Velocity = UpdateVelocity(physicsObj, collision);
             }
         }
+        
         private void Gravity(PhysicsObject physObj) 
         {
             physObj.Velocity += GRAVITY;
@@ -44,7 +47,7 @@ namespace WardEscape.GamePhysics
         private Vector2 SolveCollisions(PhysicsObject physObj) 
         {
             Vector2 collision = Vector2.Zero;
-            foreach (var gameBound in gameBounds) 
+            foreach (var gameBound in GameBounds) 
             {
                 Vector2 solve = physObj.SolveCollision(gameBound);
 
