@@ -8,17 +8,24 @@ namespace WardEscape.GameTriggers
     internal class SceneTrigger : EventEmitter
     {
         string sceneName;
+        Point newHeroPos;
         RectangleObject hitbox;
 
-        public SceneTrigger(RectangleObject hitbox, string sceneName)
+        public SceneTrigger(RectangleObject hitbox, string sceneName, Point newHeroPos)
         {
             this.hitbox = hitbox;
             this.sceneName = sceneName;
+            this.newHeroPos = newHeroPos;
         }
-        public SceneTrigger(Point position, Point size, string sceneName) 
+        public SceneTrigger(Point position, string sceneName, Point newHeroPos) 
         {
             this.sceneName = sceneName;
-            hitbox = new RectangleObject(position, size);
+            this.newHeroPos = newHeroPos;
+
+            Point triggerSize = new Point(
+                Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT
+            );
+            hitbox = new RectangleObject(position, triggerSize);
         }
 
         public void Update(RectangleObject heroHitbox) 
@@ -28,7 +35,7 @@ namespace WardEscape.GameTriggers
 
         protected override IGameEvent GenerateEvent()
         {
-            return new SceneEvent(sceneName);
+            return new SceneEvent(sceneName, newHeroPos);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     internal interface IGameEvent
     {
-        public string Info { get; }
+        public string SceneName { get; set; }
     }
 }

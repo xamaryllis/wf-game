@@ -16,6 +16,8 @@ namespace WardEscape.GameCore
             hitbox = rectangleObject;
         }
 
+        
         public void OffsetObject(Vector2 offset) => hitbox.Offset(offset);
+        public void MoveObjectTo(Point newLocation) => hitbox.Location = newLocation;
     }
 }

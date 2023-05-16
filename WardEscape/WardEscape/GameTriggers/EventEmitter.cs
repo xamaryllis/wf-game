@@ -6,7 +6,7 @@ namespace WardEscape.GameTriggers
 {
     internal abstract class EventEmitter
     {
-        List<IEventListener> subscribers;
+        List<IEventListener> subscribers = new();
 
         public void Subscribe(IEventListener listener)
             => subscribers.Add(listener);

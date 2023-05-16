@@ -1,23 +1,39 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+using WardEscape.GameCore;
 using WardEscape.GameObjects;
+using WardEscape.GameTriggers;
 
 namespace WardEscape.GameScenes
 {
     internal class StartingScene : GameScene
     {
+        public static readonly string NAME = "StartingScene";
+        
         public StartingScene(ContentManager content, SceneManager manager)
         {
-            sceneTriggers = new();
-            drawableObjects = new();
-            SceneName = "StartingScene";
-            background = new(content.Load<Texture2D>("StartingScene/Background"));
+            background = LoadBackground(content);
+            sceneTriggers = InitSceneTriggetrs(manager);
+        }
+
+        private Background LoadBackground(ContentManager content) 
+        {
+            return new(content.Load<Texture2D>("StartingScene/Background"));
+        }
+
+        private List<SceneTrigger> InitSceneTriggetrs(SceneManager manager) 
+        {  
+            SceneTrigger leftTrigger = new(
+                new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0), 
+                "HallScene", new Point(500, 400)
+            );
+            leftTrigger.Subscribe(manager);
+
+            return new List<SceneTrigger>() { leftTrigger };
         }
     }
 }

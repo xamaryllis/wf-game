@@ -39,9 +39,10 @@ namespace WardEscape
             gameHero = new GameHero(Content, new Point(20, 0));
             
             sceneManager = new SceneManager(gameHero);
-            sceneManager.AddGameScene(new StartingScene(Content, sceneManager));
-
-            sceneManager.SetGameScene("StartingScene");
+            sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
+            sceneManager.AddGameScene(new StartingScene(Content, sceneManager), StartingScene.NAME);
+            
+            sceneManager.SetGameScene(StartingScene.NAME);
         }
 
         protected override void Update(GameTime gameTime)

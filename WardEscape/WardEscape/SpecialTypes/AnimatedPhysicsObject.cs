@@ -93,6 +93,9 @@ namespace WardEscape.SpecialTypes
         public void MoveObject()
             => physicsObject.MoveObject();
 
+        public void MoveObjectTo(Point newLocation)
+            => physicsObject.MoveObjectTo(newLocation);
+
         public void MoveObject(Vector2 vector)
             => physicsObject.MoveObject(vector);
 

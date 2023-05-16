@@ -2,12 +2,11 @@
 {
     internal class LogicEvent : IGameEvent
     {
-        string logicInfo;
-        public string Info => logicInfo;
+        public string SceneName { get; set; }
 
-        public LogicEvent(string logicInfo)
+        public LogicEvent(string sceneName)
         {
-            this.logicInfo = logicInfo;
+            SceneName = sceneName;
         }
     }
 }

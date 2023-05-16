@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
@@ -13,10 +12,8 @@ namespace WardEscape.GameObjects
     internal abstract class GameScene
     {
         protected Background background;
-        protected List<SceneTrigger> sceneTriggers;
-        protected List<DrawableObject> drawableObjects;
-
-        public string SceneName { get; protected set; }
+        protected List<SceneTrigger> sceneTriggers = new();
+        protected List<DrawableObject> drawableObjects = new();
 
         public virtual void Update(GameTime gameTime, RectangleObject heroHitbox) 
         {

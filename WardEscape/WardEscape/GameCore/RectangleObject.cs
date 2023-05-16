@@ -31,7 +31,7 @@ namespace WardEscape.GameCore
         public int Bottom => rect.Y + rect.Height;
 
         public Point Center => rect.Center;
-        public Point Location => rect.Location;
+        public Point Location { get => rect.Location; set => rect.Location = value; }
 
         public override int GetHashCode() => rect.GetHashCode();
         public override bool Equals(object obj) => rect.Equals(obj);

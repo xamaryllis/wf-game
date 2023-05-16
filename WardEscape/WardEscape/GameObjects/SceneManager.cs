@@ -16,6 +16,23 @@ namespace WardEscape.GameObjects
         GameScene currentScene;
         PhysicsEngine physicsEngine;
         Dictionary<string, GameScene> gameScenes;
+        readonly List<RectangleObject> basicBounbs = new()
+        {
+            new RectangleObject(
+                new Point(-100 - 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
+                new Point(100, Constants.HEIGHT)
+            ),
+            
+            new RectangleObject(
+                new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
+                new Point(100, Constants.HEIGHT)
+            ),
+            
+            new RectangleObject(
+                new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 100), 
+                new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT)
+            ),
+        };
 
         public SceneManager(GameHero gameHero) 
         {
@@ -24,13 +41,13 @@ namespace WardEscape.GameObjects
             gameScenes = new Dictionary<string, GameScene>();
         }
 
-        public void AddGameScene(GameScene gameScene) 
+        public void AddGameScene(GameScene gameScene, string sceneNames) 
         {
-            if (!gameScenes.ContainsKey(gameScene.SceneName))
+            if (!gameScenes.ContainsKey(sceneNames))
             {
-                gameScenes.Add(gameScene.SceneName, gameScene);
+                gameScenes.Add(sceneNames, gameScene);
             }
-            else gameScenes[gameScene.SceneName] = gameScene;
+            else gameScenes[sceneNames] = gameScene;
         }
 
         public void Update(GameTime gameTime)
@@ -57,8 +74,9 @@ namespace WardEscape.GameObjects
         {
             if (gameEvent is SceneEvent sceneEvent) 
             {
-                SetGameScene(sceneEvent.Info);
-            }   
+                SetGameScene(sceneEvent.SceneName);
+                gameHero.MoveObjectTo(sceneEvent.NewHeroPos);
+            }
         }
         
         private void UpdatePhysicsObject(GameScene gameScene) 
@@ -71,12 +89,7 @@ namespace WardEscape.GameObjects
         }
         private void UpdateGameBounds(GameScene gameScene) 
         {
-            physicsEngine.GameBounds = new() 
-            {
-                new(new Point(-100, 0), new Point(100, Constants.HEIGHT)),
-                new(new Point(Constants.WIDTH, 0), new Point(100, Constants.HEIGHT)),
-                new(new Point(0, Constants.HEIGHT - 100), new Point(Constants.WIDTH, Constants.HEIGHT)),
-            };
+            physicsEngine.GameBounds = basicBounbs;
             foreach (var gameBound in gameScene.GetAdditionalBounds()) 
             {
                 physicsEngine.GameBounds.Add(gameBound);

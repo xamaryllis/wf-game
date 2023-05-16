@@ -1,13 +1,16 @@
-﻿namespace WardEscape.GameTriggers.GameEvents
+﻿using Microsoft.Xna.Framework;
+
+namespace WardEscape.GameTriggers.GameEvents
 {
     internal class SceneEvent : IGameEvent
     {
-        string sceneName;
-        public string Info => sceneName;
+        public Point NewHeroPos { get; set; }
+        public string SceneName { get; set; }
 
-        public SceneEvent(string sceneName) 
+        public SceneEvent(string sceneName, Point newHeroPos) 
         {
-            this.sceneName = sceneName;
+            SceneName = sceneName;
+            NewHeroPos = newHeroPos;
         }
     }
 }
