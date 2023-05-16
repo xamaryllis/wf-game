@@ -39,7 +39,7 @@ namespace WardEscape.GameObjects
         #endregion
 
         static int MOVE_SPEED = 5;
-        static int JUMP_SPEED = -20;
+        static int JUMP_SPEED = -15;
         static Point SIZE = new Point(81, 200);
         SpriteEffects rotation = SpriteEffects.None;
 

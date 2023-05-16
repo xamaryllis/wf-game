@@ -27,13 +27,13 @@ namespace WardEscape.GameScenes
 
         private List<SceneTrigger> InitSceneTriggetrs(SceneManager manager) 
         {  
-            SceneTrigger leftTrigger = new(
+            SceneTrigger rightTrigger = new(
                 new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0), 
-                "HallScene", new Point(500, 400)
+                HallScene.NAME, new Point(500, 400)
             );
-            leftTrigger.Subscribe(manager);
+            rightTrigger.Subscribe(manager);
 
-            return new List<SceneTrigger>() { leftTrigger };
+            return new List<SceneTrigger>() { rightTrigger };
         }
     }
 }

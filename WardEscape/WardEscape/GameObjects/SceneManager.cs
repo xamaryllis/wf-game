@@ -16,23 +16,26 @@ namespace WardEscape.GameObjects
         GameScene currentScene;
         PhysicsEngine physicsEngine;
         Dictionary<string, GameScene> gameScenes;
-        readonly List<RectangleObject> basicBounbs = new()
-        {
-            new RectangleObject(
-                new Point(-100 - 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
-                new Point(100, Constants.HEIGHT)
-            ),
+        List<RectangleObject> BasicBounbs 
+        { 
+            get => new List<RectangleObject>()
+            {
+                new RectangleObject(
+                    new Point(-100 - 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
+                    new Point(100, Constants.HEIGHT)
+                ),
             
-            new RectangleObject(
-                new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
-                new Point(100, Constants.HEIGHT)
-            ),
+                new RectangleObject(
+                    new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, 0), 
+                    new Point(100, Constants.HEIGHT)
+                ),
             
-            new RectangleObject(
-                new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 100), 
-                new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT)
-            ),
-        };
+                new RectangleObject(
+                    new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 100), 
+                    new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT)
+                ),
+            };
+        }
 
         public SceneManager(GameHero gameHero) 
         {
@@ -89,7 +92,7 @@ namespace WardEscape.GameObjects
         }
         private void UpdateGameBounds(GameScene gameScene) 
         {
-            physicsEngine.GameBounds = basicBounbs;
+            physicsEngine.GameBounds = BasicBounbs;
             foreach (var gameBound in gameScene.GetAdditionalBounds()) 
             {
                 physicsEngine.GameBounds.Add(gameBound);

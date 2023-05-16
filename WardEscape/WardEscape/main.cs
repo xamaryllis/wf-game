@@ -40,6 +40,7 @@ namespace WardEscape
             
             sceneManager = new SceneManager(gameHero);
             sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
+            sceneManager.AddGameScene(new StairsScene(Content, sceneManager), StairsScene.NAME);
             sceneManager.AddGameScene(new StartingScene(Content, sceneManager), StartingScene.NAME);
             
             sceneManager.SetGameScene(StartingScene.NAME);
