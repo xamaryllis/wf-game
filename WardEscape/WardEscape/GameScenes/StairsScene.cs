@@ -18,6 +18,7 @@ namespace WardEscape.GameScenes
         {
             background = LoadBackground(content);
             sceneTriggers = InitSceneTriggetrs(manager);
+            drawableObjects = LoadDrawableObjects(content);
         }
 
         private Background LoadBackground(ContentManager content) 
@@ -25,11 +26,22 @@ namespace WardEscape.GameScenes
             return new Background(content.Load<Texture2D>("StairsScene/Background"));
         }
 
+        private List<DrawableObject> LoadDrawableObjects(ContentManager content) 
+        {
+            return new List<DrawableObject>()
+            {
+                new(
+                    Point.Zero, Constants.WINDOW, 
+                    content.Load<Texture2D>("StairsScene/Rails")
+                ),
+            };
+        }
+
         private List<SceneTrigger> InitSceneTriggetrs(SceneManager manager)
         {
             SceneTrigger rightTrigger = new(
                 new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0),
-                HallScene.NAME, new Point(0, 400)
+                HallScene.NAME, new Point(0, 450)
             );
             rightTrigger.Subscribe(manager);
 
@@ -40,11 +52,11 @@ namespace WardEscape.GameScenes
         {
             List<RectangleObject> baseBounds = base.GetAdditionalBounds();
             
-            baseBounds.Add(new RectangleObject(new Point(892, 196), new Point(158, 43)));
-            baseBounds.Add(new RectangleObject(new Point(782, 233), new Point(102, 43)));
+            baseBounds.Add(new RectangleObject(new Point(892, 210), new Point(158, 45)));
+            baseBounds.Add(new RectangleObject(new Point(782, 243), new Point(102, 45)));
             
-            Point stairSize = new Point(102, 43);
-            Point previousStair = new Point(782, 233);
+            Point stairSize = new Point(102, 45);
+            Point previousStair = new Point(782, 243);
 
             for (int i = 0; i < 7; i++) 
             {

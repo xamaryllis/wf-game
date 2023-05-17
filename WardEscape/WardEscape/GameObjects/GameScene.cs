@@ -22,9 +22,12 @@ namespace WardEscape.GameObjects
                 trigger.Update(heroHitbox);
             }
         }
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) 
+        public virtual void DrawBackground(GameTime gameTime, SpriteBatch spriteBatch) 
         {
             background?.Draw(gameTime, spriteBatch);
+        }
+        public virtual void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch) 
+        {
             foreach (var drawableObject in drawableObjects) 
             {
                 drawableObject.Draw(gameTime, spriteBatch);

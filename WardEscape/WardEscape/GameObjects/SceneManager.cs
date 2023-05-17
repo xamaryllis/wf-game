@@ -31,7 +31,7 @@ namespace WardEscape.GameObjects
                 ),
             
                 new RectangleObject(
-                    new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 100), 
+                    new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 50), 
                     new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT)
                 ),
             };
@@ -60,8 +60,9 @@ namespace WardEscape.GameObjects
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            currentScene?.Draw(gameTime, spriteBatch);
+            currentScene?.DrawBackground(gameTime, spriteBatch);
             gameHero.Draw(gameTime, spriteBatch);
+            currentScene?.DrawObjects(gameTime, spriteBatch);
         }
         
         public void SetGameScene(string sceneName) 
