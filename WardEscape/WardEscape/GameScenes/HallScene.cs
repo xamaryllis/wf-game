@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
 using WardEscape.GameObjects;
+using WardEscape.GameObjects.SceneObjects;
 
 namespace WardEscape.GameScenes
 {

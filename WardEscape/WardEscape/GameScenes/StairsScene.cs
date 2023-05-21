@@ -5,7 +5,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
+using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects;
+using WardEscape.GameObjects.SceneObjects;
 
 namespace WardEscape.GameScenes
 {

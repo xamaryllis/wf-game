@@ -3,8 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using WardEscape.GameCore;
-using WardEscape.GameObjects;
 using WardEscape.GameScenes;
+using WardEscape.GameObjects;
+using WardEscape.GameObjects.GUIObjects;
+using WardEscape.GameObjects.SceneObjects;
 
 namespace WardEscape
 {

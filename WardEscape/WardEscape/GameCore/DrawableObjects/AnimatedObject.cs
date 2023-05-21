@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using WardEscape.GameCore.BaseObjects;
 
-namespace WardEscape.GameCore
+namespace WardEscape.GameCore.DrawableObjects
 {
     internal class AnimatedObject : DrawableObject
     {
@@ -26,7 +27,7 @@ namespace WardEscape.GameCore
             Animate(gameTime); base.Draw(gameTime, spriteBatch);
         }
 
-        protected void Animate(GameTime gameTime) 
+        protected void Animate(GameTime gameTime)
         {
             if (gameTime.TotalGameTime.Milliseconds % (MILLISECOND / Sprites.Count) == 0)
             {

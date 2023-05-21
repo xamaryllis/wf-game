@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WardEscape.GameCore
+namespace WardEscape.GameCore.BaseObjects
 {
     class RectangleObject
     {
@@ -15,7 +15,7 @@ namespace WardEscape.GameCore
             rect = new Rectangle(position, size);
         }
 
-        public static implicit operator Rectangle(RectangleObject obj) 
+        public static implicit operator Rectangle(RectangleObject obj)
         {
             return obj.rect;
         }
@@ -37,9 +37,9 @@ namespace WardEscape.GameCore
         public override bool Equals(object obj) => rect.Equals(obj);
         public bool Equals(RectangleObject other) => rect.Equals(other.rect);
 
-        public static bool operator ==(RectangleObject a, RectangleObject b) 
+        public static bool operator ==(RectangleObject a, RectangleObject b)
             => a.rect == b.rect;
-        public static bool operator !=(RectangleObject a, RectangleObject b) 
+        public static bool operator !=(RectangleObject a, RectangleObject b)
             => a.rect != b.rect;
 
         public void Offset(Point amount) => rect.Offset(amount);

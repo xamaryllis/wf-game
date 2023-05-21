@@ -2,8 +2,8 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-using WardEscape.GameCore;
+using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GamePhysics;
 
 namespace WardEscape.SpecialTypes

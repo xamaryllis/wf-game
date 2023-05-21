@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WardEscape.GameCore
+namespace WardEscape.GameCore.BaseObjects
 {
     internal class BaseObject
     {
         RectangleObject hitbox;
         public RectangleObject Hitbox { get => hitbox; }
-        
-        public BaseObject(Point position, Point size) 
+
+        public BaseObject(Point position, Point size)
         {
             hitbox = new RectangleObject(position, size);
         }
@@ -16,7 +16,7 @@ namespace WardEscape.GameCore
             hitbox = rectangleObject;
         }
 
-        
+
         public void OffsetObject(Vector2 offset) => hitbox.Offset(offset);
         public void MoveObjectTo(Point newLocation) => hitbox.Location = newLocation;
     }

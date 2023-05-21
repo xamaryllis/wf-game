@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
-using WardEscape.GameCore;
+using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape.GamePhysics
 {

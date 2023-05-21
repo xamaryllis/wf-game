@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WardEscape.GameCore
+namespace WardEscape.GameCore.BaseObjects
 {
     internal interface ITriggableObject
     {
