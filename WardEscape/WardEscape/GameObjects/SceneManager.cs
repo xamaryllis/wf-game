@@ -5,17 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
 using WardEscape.GamePhysics;
-using WardEscape.GameTriggers;
-using WardEscape.GameTriggers.GameEvents;
 
 namespace WardEscape.GameObjects
 {
-    internal class SceneManager : IEventListener
+    internal class SceneManager
     {
         GameHero gameHero;
         GameScene currentScene;
         PhysicsEngine physicsEngine;
         Dictionary<string, GameScene> gameScenes;
+        
         List<RectangleObject> BasicBounbs 
         { 
             get => new List<RectangleObject>()
@@ -65,21 +64,15 @@ namespace WardEscape.GameObjects
             currentScene?.DrawObjects(gameTime, spriteBatch);
         }
         
-        public void SetGameScene(string sceneName) 
+        public void SetGameScene(string sceneName, Point newHeroPos) 
         {
             if (gameScenes.ContainsKey(sceneName)) 
             {
+                gameHero.MoveObjectTo(newHeroPos);
+                
                 currentScene = gameScenes[sceneName];
                 UpdateGameBounds(gameScenes[sceneName]);
                 UpdatePhysicsObject(gameScenes[sceneName]);
-            }
-        }
-        public void ListentEvent(IGameEvent gameEvent)
-        {
-            if (gameEvent is SceneEvent sceneEvent) 
-            {
-                SetGameScene(sceneEvent.SceneName);
-                gameHero.MoveObjectTo(sceneEvent.NewHeroPos);
             }
         }
         

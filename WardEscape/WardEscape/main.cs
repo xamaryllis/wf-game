@@ -14,6 +14,7 @@ namespace WardEscape
         private GraphicsDeviceManager _graphics;
 
         SpriteFont font;
+        GameButton button;
 
         private GameHero gameHero;
         private SceneManager sceneManager;
@@ -38,16 +39,18 @@ namespace WardEscape
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameHero = new GameHero(Content, new Point(1000, 50));
+            gameHero = new GameHero(Content, new Point(100, Constants.HEIGHT - 50));
 
             font = Content.Load<SpriteFont>("Font");
+            Callback callback = () => { sceneManager.SetGameScene(HallScene.NAME, new(0, 0)); };
+            button = new(new(100, 100), new(250, 100), "Hello", callback, Content);
 
             sceneManager = new SceneManager(gameHero);
             sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
             sceneManager.AddGameScene(new StairsScene(Content, sceneManager), StairsScene.NAME);
             sceneManager.AddGameScene(new StartingScene(Content, sceneManager), StartingScene.NAME);
             
-            sceneManager.SetGameScene(StairsScene.NAME);
+            sceneManager.SetGameScene(StartingScene.NAME, Point.Zero);
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +58,7 @@ namespace WardEscape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            button.Update(gameTime);
             sceneManager.Update(gameTime); base.Update(gameTime);
         }
 
@@ -63,10 +67,10 @@ namespace WardEscape
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            
+
             sceneManager.Draw(gameTime, _spriteBatch);
-            _spriteBatch.DrawString(font, "Hello\nWorld!", new Vector2(100, 100), Color.Black);
-            var res = font.MeasureString("Hello world!");
+            
+            button.Draw(gameTime, _spriteBatch);
             
             _spriteBatch.End();
 

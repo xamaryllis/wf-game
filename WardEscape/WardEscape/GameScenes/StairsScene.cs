@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
 using WardEscape.GameObjects;
-using WardEscape.GameTriggers;
 
 namespace WardEscape.GameScenes
 {
@@ -41,9 +40,8 @@ namespace WardEscape.GameScenes
         {
             SceneTrigger rightTrigger = new(
                 new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0),
-                HallScene.NAME, new Point(0, 450)
+                () => manager.SetGameScene(HallScene.NAME, new Point(0, 450))
             );
-            rightTrigger.Subscribe(manager);
 
             return new List<SceneTrigger>() { rightTrigger };
         }

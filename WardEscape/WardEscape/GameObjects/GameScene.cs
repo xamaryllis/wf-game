@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
 using WardEscape.GamePhysics;
-using WardEscape.GameTriggers;
 
 namespace WardEscape.GameObjects
 {
@@ -19,7 +18,7 @@ namespace WardEscape.GameObjects
         {
             foreach(var trigger in sceneTriggers) 
             {
-                trigger.Update(heroHitbox);
+                trigger.Update(gameTime, heroHitbox);
             }
         }
         public virtual void DrawBackground(GameTime gameTime, SpriteBatch spriteBatch) 

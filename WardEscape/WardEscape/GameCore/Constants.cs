@@ -9,6 +9,7 @@ namespace WardEscape.GameCore
 
         public static readonly int SCENE_TRIGGER_WIDTH = 30;
 
+        public static readonly Point MOUSE_SIZE = new(5, 5);
         public static readonly Point WINDOW = new(WIDTH, HEIGHT);
     }
 }

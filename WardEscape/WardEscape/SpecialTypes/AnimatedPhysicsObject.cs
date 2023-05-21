@@ -92,16 +92,12 @@ namespace WardEscape.SpecialTypes
 
         public void MoveObject()
             => physicsObject.MoveObject();
-
         public void MoveObjectTo(Point newLocation)
             => physicsObject.MoveObjectTo(newLocation);
-
         public void MoveObject(Vector2 vector)
             => physicsObject.MoveObject(vector);
-
         public Vector2 SolveCollision(PhysicsObject physicsObj)
             => physicsObject.SolveCollision(physicsObj);
-
         public Vector2 SolveCollision(Rectangle hitbox)
             => physicsObject.SolveCollision(hitbox);
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using WardEscape.GameCore;
 using WardEscape.SpecialTypes;
 
+
 namespace WardEscape.GameObjects
 {
     internal class GameHero : AnimatedPhysicsObject
@@ -76,6 +77,7 @@ namespace WardEscape.GameObjects
 
         private static List<Texture2D> LoadSprites(ContentManager content) 
         {
+            
             List<Texture2D> sprites = new()
             {
                 content.Load<Texture2D>("GameHero/Edna_1"),
