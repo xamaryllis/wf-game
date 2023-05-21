@@ -9,6 +9,7 @@ namespace WardEscape.GameCore.DrawableObjects
     {
         int animationCount = 0;
         static int MILLISECOND = 1000;
+        
         List<Texture2D> Sprites { get; set; }
 
         public AnimatedObject(Point position, Point size, List<Texture2D> sprites)

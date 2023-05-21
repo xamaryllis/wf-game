@@ -1,45 +1,49 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 using WardEscape.GameCore;
+using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameCore.TextObjects;
 using WardEscape.GameCore.DrawableObjects;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
     delegate void Callback();
-    internal class GameButton : DrawableObject
+    internal class GameButton : DrawableObject, ITriggableObject
     {
-        string text;
-        SpriteFont font;
         Callback callback;
-        Point textPosition;
-
+        
+        TextlabelObject TextObject { get; set; }
+        
         public GameButton(Point position, Point size, string text, Callback callback, ContentManager content)
-            : base(position, size, content.Load<Texture2D>("GuiElements/Button"))
+            : base(position, size, content.Load<Texture2D>("GuiElements/Button")) 
         {
-            this.text = text;
             this.callback = callback;
-            font = content.Load<SpriteFont>("Font");
-
-            Point textSize = font.MeasureString(text).ToPoint();
-            textPosition = position + new Point((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2);
+            TextObject = InitTextlabel(position, size, text, content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(font, text, textPosition.ToVector2(), Color.Black);
+            TextObject.Draw(gameTime, spriteBatch);
+        }
+        public void Update(GameTime gameTime, RectangleObject hitbox)
+        {
+            if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
+            {
+                if (MouseStateObject.IsClicked()) callback();
+            }
         }
 
-        public void Update(GameTime gameTime)
+        private static TextlabelObject InitTextlabel(Point btnPos, Point btnSize, string text, ContentManager content) 
         {
-            MouseState mouseState = Mouse.GetState();
-            if (Hitbox.Intersects(new(mouseState.Position, Constants.MOUSE_SIZE)))
-            {
-                if (mouseState.LeftButton == ButtonState.Pressed) callback();
-            }
+            SpriteFont font = content.Load<SpriteFont>("Fonts/ButtonFont");
+            
+            Point textSize = font.MeasureString(text).ToPoint();
+            Point textPosition = new((btnSize.X - textSize.X) / 2, (btnSize.Y - textSize.Y) / 2);
+
+            return new((textPosition + btnPos).ToVector2(), textSize.X, font, text);
         }
     }
 }

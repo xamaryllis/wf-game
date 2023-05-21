@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,16 +9,25 @@ using WardEscape.GameScenes;
 using WardEscape.GameObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
+using Microsoft.Xna.Framework.Content;
 
 namespace WardEscape
 {
+    class CandyItem : ItemOverlay
+    {
+        public CandyItem(string itemName, Callback callback, ContentManager content) 
+            : base(itemName, content.Load<Texture2D>("Candy"), callback, content)
+        { }
+    }
+    
     public class Main : Game
     {
         private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
 
-        SpriteFont font;
         GameButton button;
+        GameDialog gameDialog;
+        CandyItem candyItem;
 
         private GameHero gameHero;
         private SceneManager sceneManager;
@@ -43,9 +54,23 @@ namespace WardEscape
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             gameHero = new GameHero(Content, new Point(100, Constants.HEIGHT - 50));
 
-            font = Content.Load<SpriteFont>("Font");
-            Callback callback = () => { sceneManager.SetGameScene(HallScene.NAME, new(0, 0)); };
+            Queue<string> dialogs = new Queue<string>(new string[] 
+            {
+                "Dean: Hi Edna! Have you been to the cafeteria today?",
+                "Edna: Yeah, the mashed potatoes were disgusting...",
+                "Sam: We will all burn in hell...",
+                "Dean: Shut up Sam! Mashed potatoes were never their forte...",
+                "Edna: Precisely.",
+                "Sam: We will all burn in hell...",
+                "Dean: Shut the f*ck up Sam! I'm sick of you... Hey Edna, can you bring me something sweet?",
+                "Edna: Will try."
+
+            });
+            Callback callback = () => { sceneManager.SetGameScene(HallScene.NAME, new(200, 200)); };
+
+            candyItem = new("Candy", callback, Content);
             button = new(new(100, 100), new(250, 100), "Hello", callback, Content);
+            gameDialog = new(new(100, 100), new(500, 150), dialogs, callback, Content);
 
             sceneManager = new SceneManager(gameHero);
             sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
@@ -60,7 +85,8 @@ namespace WardEscape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            button.Update(gameTime);
+            MouseStateObject.Update(gameTime);
+            candyItem.Update(gameTime, gameHero.Hitbox);
             sceneManager.Update(gameTime); base.Update(gameTime);
         }
 
@@ -71,8 +97,8 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            
-            button.Draw(gameTime, _spriteBatch);
+
+            candyItem.Draw(gameTime, _spriteBatch);
             
             _spriteBatch.End();
 

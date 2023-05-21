@@ -22,20 +22,29 @@ namespace WardEscape.GameCore.TextObjects
         {
             spriteBatch.DrawString(font, text, position, Color.Black);
         }
+        public virtual void UpdateText(string newText, float maxWidth) 
+        {
+            text = CutText(newText, maxWidth, font);
+        }
 
         private static string CutText(string text, float maxWidth, SpriteFont font)
         {
             float currentLength = 0;
-            StringBuilder builder = new(text);
+            StringBuilder builder = new();
+            string[] splitedText = text.Split(" ");
 
-            for (int i = 0; i < text.Length; i++)
+            for (int i = 0; i < splitedText.Length; i++)
             {
-                if (currentLength >= maxWidth)
+                string textToAdd = splitedText[i];
+                if (splitedText.Length != i + 1) textToAdd += " ";
+                
+                float delta = font.MeasureString(textToAdd).X;
+                
+                if (currentLength + delta > maxWidth)
                 {
-                    currentLength = 0;
-                    builder.Insert(i, "\n");
+                    currentLength = 0; builder.Append("\n");
                 }
-                currentLength += font.MeasureString($"{text[i]}").X;
+                builder.Append(textToAdd); currentLength += delta;
             }
             return builder.ToString();
         }
