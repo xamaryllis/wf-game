@@ -13,17 +13,16 @@ namespace WardEscape.GameObjects.GUIObjects
 {
     internal class GameDialog : DrawableObject, ITriggableObject
     {
-        Callback callback;
         Queue<string> dialogs;
         static readonly int PADDING = 10;
-        
+
+        public Callback Callback { get; set; }
         AnimatedTextObject TextObject { get; set; }
         
-        public GameDialog(Point position, Point size, Queue<string> dialogs, Callback callback, ContentManager content) 
+        public GameDialog(Point position, Point size, Queue<string> dialogs, ContentManager content) 
             : base(position, size, content.Load<Texture2D>("GuiElements/Dialog"))
         {
             this.dialogs = dialogs;
-            this.callback = callback;
 
             TextObject = InitTextlabel(position, size, dialogs.Dequeue(), content);
         }
@@ -47,7 +46,7 @@ namespace WardEscape.GameObjects.GUIObjects
                 {
                     TextObject.UpdateText(dialogs.Dequeue(), Hitbox.Width - 2 * PADDING);
                 } 
-                else callback();
+                else Callback();
             }
         }
 

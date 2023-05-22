@@ -12,14 +12,12 @@ namespace WardEscape.GameObjects.GUIObjects
     delegate void Callback();
     internal class GameButton : DrawableObject, ITriggableObject
     {
-        Callback callback;
-        
+        public Callback Callback { get; set; }
         TextlabelObject TextObject { get; set; }
         
-        public GameButton(Point position, Point size, string text, Callback callback, ContentManager content)
+        public GameButton(Point position, Point size, string text, ContentManager content)
             : base(position, size, content.Load<Texture2D>("GuiElements/Button")) 
         {
-            this.callback = callback;
             TextObject = InitTextlabel(position, size, text, content);
         }
 
@@ -32,7 +30,7 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
             {
-                if (MouseStateObject.IsClicked()) callback();
+                if (MouseStateObject.IsClicked()) Callback();
             }
         }
 

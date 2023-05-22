@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
+using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects;
 using WardEscape.GameObjects.SceneObjects;
 
@@ -14,25 +16,24 @@ namespace WardEscape.GameScenes
     {
         public static readonly string NAME = "HallScene";
 
-        public HallScene(ContentManager content, SceneManager manager) 
-        {
-            background = LoadBackground(content);
-            sceneTriggers = InitSceneTriggetrs(manager);
-        }
+        public HallScene(ContentManager content, SceneManager manager)
+            : base(content, manager)
+        { }
 
-        private Background LoadBackground(ContentManager content)
+        protected override Background LoadBackground(ContentManager content)
         {
             return new(content.Load<Texture2D>("HallScene/Background"));
         }
-
-        private List<SceneTrigger> InitSceneTriggetrs(SceneManager manager) 
+        protected override List<DrawableObject> LoadDrawable(ContentManager content)
         {
-            SceneTrigger leftTrigger = new(
-                new Point(-Constants.SCENE_TRIGGER_WIDTH, 0),
-                () => manager.SetGameScene(StairsScene.NAME, new Point(1000, 50))
-            );
+            return new List<DrawableObject>();
+        }
+        protected override List<ITriggableObject> InitTriggers(SceneManager manager)
+        {
+            SceneTrigger leftTrigger = new(new Point(-Constants.SCENE_TRIGGER_WIDTH, 0));
+            leftTrigger.ChangeScene = () => manager.SetGameScene(StairsScene.NAME, new Point(1000, 50));
 
-            return new List<SceneTrigger> { leftTrigger };
+            return new List<ITriggableObject> { leftTrigger };
         }
     }
 }

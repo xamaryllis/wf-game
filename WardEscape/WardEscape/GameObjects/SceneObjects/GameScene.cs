@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.DrawableObjects;
@@ -11,12 +12,24 @@ namespace WardEscape.GameObjects.SceneObjects
     internal abstract class GameScene
     {
         protected Background background;
-        protected List<SceneTrigger> sceneTriggers = new();
-        protected List<DrawableObject> drawableObjects = new();
+        protected List<DrawableObject> drawableObjects;
+        protected List<ITriggableObject> triggablesObjects;
+
+        public GameScene(ContentManager content, SceneManager manager)
+        {
+            background = LoadBackground(content);
+            drawableObjects = LoadDrawable(content);
+            triggablesObjects = InitTriggers(manager);
+        }
+
+        protected abstract Background LoadBackground(ContentManager content);
+        protected abstract List<DrawableObject> LoadDrawable(ContentManager content);
+        protected abstract List<ITriggableObject> InitTriggers(SceneManager manager);
+
 
         public virtual void Update(GameTime gameTime, RectangleObject heroHitbox)
         {
-            foreach (var trigger in sceneTriggers)
+            foreach (var trigger in triggablesObjects)
             {
                 trigger.Update(gameTime, heroHitbox);
             }

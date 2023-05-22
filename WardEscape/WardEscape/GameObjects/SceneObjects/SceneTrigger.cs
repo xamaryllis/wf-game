@@ -9,18 +9,14 @@ namespace WardEscape.GameObjects.SceneObjects
 
     internal class SceneTrigger : BaseObject, ITriggableObject
     {
-        ChangeScene ChangeScene { get; set; }
+        public ChangeScene ChangeScene { get; set; }
 
-        public SceneTrigger(Point position, ChangeScene changeScene)
+        public SceneTrigger(Point position)
             : base(position, new(Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT))
-        {
-            ChangeScene = changeScene;
-        }
-        public SceneTrigger(RectangleObject rectangleObject, ChangeScene changeScene)
+        { }
+        public SceneTrigger(RectangleObject rectangleObject)
             : base(rectangleObject)
-        {
-            ChangeScene = changeScene;
-        }
+        { }
 
         public void Update(GameTime gameTime, RectangleObject hitbox)
         {

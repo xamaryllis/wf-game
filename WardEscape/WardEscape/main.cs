@@ -15,8 +15,8 @@ namespace WardEscape
 {
     class CandyItem : ItemOverlay
     {
-        public CandyItem(string itemName, Callback callback, ContentManager content) 
-            : base(itemName, content.Load<Texture2D>("Candy"), callback, content)
+        public CandyItem(string itemName, ContentManager content) 
+            : base(itemName, content.Load<Texture2D>("GameHero/Edna_1"), content)
         { }
     }
     
@@ -68,9 +68,13 @@ namespace WardEscape
             });
             Callback callback = () => { sceneManager.SetGameScene(HallScene.NAME, new(200, 200)); };
 
-            candyItem = new("Candy", callback, Content);
-            button = new(new(100, 100), new(250, 100), "Hello", callback, Content);
-            gameDialog = new(new(100, 100), new(500, 150), dialogs, callback, Content);
+            candyItem = new("Candy", Content);
+            button = new(new(100, 100), new(250, 100), "Hello", Content);
+            gameDialog = new(new(100, 100), new(500, 150), dialogs, Content);
+
+            candyItem.Callback = callback;
+            button.Callback = callback;
+            gameDialog.Callback = callback;
 
             sceneManager = new SceneManager(gameHero);
             sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
@@ -86,7 +90,7 @@ namespace WardEscape
                 Exit();
 
             MouseStateObject.Update(gameTime);
-            candyItem.Update(gameTime, gameHero.Hitbox);
+            gameDialog.Update(gameTime, gameHero.Hitbox);
             sceneManager.Update(gameTime); base.Update(gameTime);
         }
 
@@ -98,7 +102,7 @@ namespace WardEscape
 
             sceneManager.Draw(gameTime, _spriteBatch);
 
-            candyItem.Draw(gameTime, _spriteBatch);
+            gameDialog.Draw(gameTime, _spriteBatch);
             
             _spriteBatch.End();
 

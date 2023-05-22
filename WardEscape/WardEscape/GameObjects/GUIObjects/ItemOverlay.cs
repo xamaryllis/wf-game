@@ -11,8 +11,6 @@ namespace WardEscape.GameObjects.GUIObjects
 {
     internal class ItemOverlay : DrawableObject, ITriggableObject
     {
-        Callback callback;
-
         static Point Position
         {
             get => new((Constants.WIDTH - SIZE.X) / 2, (Constants.HEIGHT - SIZE.Y) / 2);
@@ -22,14 +20,13 @@ namespace WardEscape.GameObjects.GUIObjects
         static readonly Point ITEMSIZE = new Point(250, 210);
 
         DrawableObject Item { get; set; }
+        public Callback Callback { get; set; }
         TextlabelObject Textlabel { get; set; }
         TransperentBackground Background { get; set; }
 
-        public ItemOverlay(string itemName, Texture2D sprite, Callback callback, ContentManager content)
+        public ItemOverlay(string itemName, Texture2D sprite, ContentManager content)
             : base(Position, SIZE, content.Load<Texture2D>("GuiElements/Item"))
         {
-            this.callback = callback;
-            
             Item = InitItem(sprite);
             Background = InitBackground(content);
             Textlabel = InitLabel(itemName, content);
@@ -39,7 +36,7 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
             {
-                if (MouseStateObject.IsClicked()) callback();
+                if (MouseStateObject.IsClicked()) Callback();
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
