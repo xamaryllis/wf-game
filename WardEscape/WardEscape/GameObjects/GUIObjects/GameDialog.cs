@@ -24,7 +24,7 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             this.dialogs = dialogs;
 
-            TextObject = InitTextlabel(position, size, dialogs.Dequeue(), content);
+            TextObject = InitTextlabel(position, dialogs.Dequeue(), content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -50,7 +50,7 @@ namespace WardEscape.GameObjects.GUIObjects
             }
         }
 
-        private AnimatedTextObject InitTextlabel(Point labelPos, Point labelSize, string text, ContentManager content)
+        private AnimatedTextObject InitTextlabel(Point labelPos, string text, ContentManager content)
         {
             Point textPosition = new(labelPos.X + PADDING, labelPos.Y);
             SpriteFont font = content.Load<SpriteFont>("Fonts/DialogFont");

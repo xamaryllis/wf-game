@@ -17,7 +17,7 @@ namespace WardEscape.GameObjects.GUIObjects
         }
         static readonly int PADDING = 20;
         static readonly Point SIZE = new(400, 400);
-        static readonly Point ITEMSIZE = new Point(250, 210);
+        static readonly Point ITEMSIZE = new(250, 210);
 
         DrawableObject Item { get; set; }
         public Callback Callback { get; set; }

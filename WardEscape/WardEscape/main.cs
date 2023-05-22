@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 using WardEscape.GameCore;
 using WardEscape.GameScenes;
 using WardEscape.GameObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
-using Microsoft.Xna.Framework.Content;
 
 namespace WardEscape
 {
@@ -24,6 +24,8 @@ namespace WardEscape
     {
         private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
+
+        Texture2D rect1;
 
         GameButton button;
         GameDialog gameDialog;
@@ -54,7 +56,7 @@ namespace WardEscape
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             gameHero = new GameHero(Content, new Point(100, Constants.HEIGHT - 50));
 
-            Queue<string> dialogs = new Queue<string>(new string[] 
+            Queue<string> dialogs = new(new string[] 
             {
                 "Dean: Hi Edna! Have you been to the cafeteria today?",
                 "Edna: Yeah, the mashed potatoes were disgusting...",
@@ -66,10 +68,10 @@ namespace WardEscape
                 "Edna: Will try."
 
             });
-            Callback callback = () => { sceneManager.SetGameScene(HallScene.NAME, new(200, 200)); };
+            Callback callback = () => { TwinsRoomScene.SweetReciveChange(); };
 
             candyItem = new("Candy", Content);
-            button = new(new(100, 100), new(250, 100), "Hello", Content);
+            button = new(new(0, 100), new(200, 80), "Hello", Content);
             gameDialog = new(new(100, 100), new(500, 150), dialogs, Content);
 
             candyItem.Callback = callback;
@@ -77,11 +79,26 @@ namespace WardEscape
             gameDialog.Callback = callback;
 
             sceneManager = new SceneManager(gameHero);
-            sceneManager.AddGameScene(new HallScene(Content, sceneManager), HallScene.NAME);
-            sceneManager.AddGameScene(new StairsScene(Content, sceneManager), StairsScene.NAME);
-            sceneManager.AddGameScene(new StartingScene(Content, sceneManager), StartingScene.NAME);
+
+            int width = 145;
+            int height = 168;
+
+            Color[] data1 = new Color[width * height];
+            for (int i = 0; i < width * height; i++)
+            {
+                data1[i] = Color.Red;
+            }
+            rect1 = new(GraphicsDevice, width, height); rect1.SetData(data1);
+
+            //sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager), EricRoomScene.NAME);
+            sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
+            sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
+            //sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
+            sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
+            sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
+            //sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
             
-            sceneManager.SetGameScene(StartingScene.NAME, Point.Zero);
+            sceneManager.SetGameScene(TwinsRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,7 +107,7 @@ namespace WardEscape
                 Exit();
 
             MouseStateObject.Update(gameTime);
-            gameDialog.Update(gameTime, gameHero.Hitbox);
+            button.Update(gameTime, gameHero.Hitbox);
             sceneManager.Update(gameTime); base.Update(gameTime);
         }
 
@@ -101,9 +118,10 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
+            //_spriteBatch.Draw(rect1, new Vector2(290, Constants.FLOOR_LEVEL - 158), Color.White);
 
-            gameDialog.Draw(gameTime, _spriteBatch);
-            
+            button.Draw(gameTime, _spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

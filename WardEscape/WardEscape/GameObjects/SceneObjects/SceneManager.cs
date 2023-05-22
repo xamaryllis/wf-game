@@ -16,23 +16,23 @@ namespace WardEscape.GameObjects.SceneObjects
         PhysicsEngine physicsEngine;
         Dictionary<string, GameScene> gameScenes;
 
-        List<RectangleObject> BasicBounbs
+        static List<RectangleObject> BasicBounbs
         {
-            get => new List<RectangleObject>()
+            get => new()
             {
                 new RectangleObject(
-                    new Point(-100 - 2 * Constants.SCENE_TRIGGER_WIDTH, 0),
-                    new Point(100, Constants.HEIGHT)
+                    new Point(Constants.LEFT_BORDER, 0),
+                    new Point(Constants.SCENE_OFFSET, Constants.HEIGHT)
                 ),
 
                 new RectangleObject(
-                    new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, 0),
-                    new Point(100, Constants.HEIGHT)
+                    new Point(Constants.RIGHT_BORDER - Constants.SCENE_OFFSET, 0),
+                    new Point(Constants.SCENE_OFFSET, Constants.HEIGHT)
                 ),
 
                 new RectangleObject(
-                    new Point(-2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT - 50),
-                    new Point(Constants.WIDTH + 2 * Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT)
+                    new Point(Constants.LEFT_BORDER, Constants.FLOOR_LEVEL),
+                    new Point(Constants.RIGHT_BORDER, Constants.HEIGHT)
                 ),
             };
         }
@@ -52,19 +52,16 @@ namespace WardEscape.GameObjects.SceneObjects
             }
             else gameScenes[sceneNames] = gameScene;
         }
-
         public void Update(GameTime gameTime)
         {
-            physicsEngine.Update(gameTime); gameHero.Update(gameTime);
-            currentScene?.Update(gameTime, gameHero.Hitbox);
+            physicsEngine.Update(gameTime); 
+            currentScene?.Update(gameTime, gameHero);
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             currentScene?.DrawBackground(gameTime, spriteBatch);
-            gameHero.Draw(gameTime, spriteBatch);
-            currentScene?.DrawObjects(gameTime, spriteBatch);
+            currentScene?.DrawObjects(gameTime, spriteBatch, gameHero);
         }
-
         public void SetGameScene(string sceneName, Point newHeroPos)
         {
             if (gameScenes.ContainsKey(sceneName))

@@ -5,39 +5,35 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
-using WardEscape.GameCore.BaseObjects;
-using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects;
+using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
 
 namespace WardEscape.GameScenes
 {
-    internal class StartingScene : GameScene
+    internal class ToiletRoomScene : GameScene
     {
-        public static readonly string NAME = "StartingScene";
-        
-        public StartingScene(ContentManager content, SceneManager manager)
+        public static readonly string NAME = "ToiletRoom";
+
+        public ToiletRoomScene(ContentManager content, SceneManager manager) 
             : base(content, manager)
         { }
 
         protected override Background LoadBackground(ContentManager content)
         {
-            return new(content.Load<Texture2D>("StartingScene/Background"));
+            return new Background(content.Load<Texture2D>("ToiletRoomScene/Background"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
-        {  
-            SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0));
-            rightTrigger.ChangeScene = () => manager.SetGameScene(HallScene.NAME, new Point(500, Constants.HEIGHT - 50));
-
-            return new List<ITriggableObject>() { rightTrigger };
+        {
+            throw new System.NotImplementedException();
         }
         protected override List<IDrawableObject> LoadDrawable(ContentManager content)
         {
-            return new List<IDrawableObject>();
+            throw new System.NotImplementedException();
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            return new List<ITriggableDrawable>();
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -27,7 +27,6 @@ namespace WardEscape.GameCore.DrawableObjects
         {
             Animate(gameTime); base.Draw(gameTime, spriteBatch);
         }
-
         protected void Animate(GameTime gameTime)
         {
             if (gameTime.TotalGameTime.Milliseconds % (MILLISECOND / Sprites.Count) == 0)

@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using System.Collections.Generic;
-using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameCore;
 using WardEscape.SpecialTypes;
+using WardEscape.GameCore.BaseObjects;
+
 
 
 namespace WardEscape.GameObjects
@@ -41,7 +44,7 @@ namespace WardEscape.GameObjects
 
         static int MOVE_SPEED = 5;
         static int JUMP_SPEED = -15;
-        static Point SIZE = new Point(81, 200);
+        static Point SIZE = Constants.HERO_SIZE;
         SpriteEffects rotation = SpriteEffects.None;
 
         public GameHero(ContentManager content, Point position) 
@@ -67,14 +70,12 @@ namespace WardEscape.GameObjects
             if (keyboarState.IsKeyDown(Keys.Space) && Velocity.Y == 0)
                 Velocity = new Vector2(Velocity.X, JUMP_SPEED);
         }
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
             AnimatedHeroAux aux = (AnimatedHeroAux)animatedObject;
             spriteBatch.Draw(aux.HeroSprite, Hitbox, null, Color.White, 0, Vector2.Zero, rotation, 0);
         }
-
         private static List<Texture2D> LoadSprites(ContentManager content) 
         {
             

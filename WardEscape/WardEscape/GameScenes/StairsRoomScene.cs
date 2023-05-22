@@ -12,11 +12,11 @@ using WardEscape.GameObjects.SceneObjects;
 
 namespace WardEscape.GameScenes
 {
-    internal class StairsScene : GameScene
+    internal class StairsRoomScene : GameScene
     {
-        public static readonly string NAME = "StairsScene";
+        public static readonly string NAME = "StairsRoom";
         
-        public StairsScene(ContentManager content, SceneManager manager) 
+        public StairsRoomScene(ContentManager content, SceneManager manager) 
             : base(content, manager)
         { }
 
@@ -27,8 +27,8 @@ namespace WardEscape.GameScenes
             baseBounds.Add(new RectangleObject(new Point(892, 210), new Point(158, 45)));
             baseBounds.Add(new RectangleObject(new Point(782, 243), new Point(102, 45)));
 
-            Point stairSize = new Point(102, 45);
-            Point previousStair = new Point(782, 243);
+            Point stairSize = new(102, 45);
+            Point previousStair = new(782, 243);
 
             for (int i = 0; i < 7; i++)
             {
@@ -39,14 +39,30 @@ namespace WardEscape.GameScenes
             return baseBounds;
         }
 
+        public override void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch, GameHero gameHero)
+        {
+            gameHero.Draw(gameTime, spriteBatch);
+            foreach (var drawableObject in drawableObjects)
+            {
+                drawableObject.Draw(gameTime, spriteBatch);
+            }
+
+            foreach (var drawableObject in triggableDrawables)
+            {
+                drawableObject.Draw(gameTime, spriteBatch);
+            }
+        }
+
         protected override Background LoadBackground(ContentManager content)
         {
-            return new Background(content.Load<Texture2D>("StairsScene/Background"));
+            return new Background(content.Load<Texture2D>("StairsRoomScene/Background"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {
-            SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0));
-            rightTrigger.ChangeScene = () => manager.SetGameScene(HallScene.NAME, new Point(0, 450));
+            SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0))
+            {
+                ChangeScene = () => manager.SetGameScene(HallRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS))
+            };
 
             return new List<ITriggableObject>() { rightTrigger };
         }
@@ -54,10 +70,7 @@ namespace WardEscape.GameScenes
         {
             return new List<IDrawableObject>()
             {
-                new DrawableObject(
-                    Point.Zero, Constants.WINDOW, 
-                    content.Load<Texture2D>("StairsScene/Rails")
-                ),
+                new DrawableObject(Point.Zero, Constants.WINDOW, content.Load<Texture2D>("StairsRoomScene/Rails")),
             };
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)

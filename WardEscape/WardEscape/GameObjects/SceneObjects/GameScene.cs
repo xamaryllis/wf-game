@@ -3,9 +3,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using WardEscape.GameCore.BaseObjects;
-using WardEscape.GameCore.DrawableObjects;
+
 using WardEscape.GamePhysics;
+using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape.GameObjects.SceneObjects
 {
@@ -29,23 +29,35 @@ namespace WardEscape.GameObjects.SceneObjects
         protected abstract List<IDrawableObject> LoadDrawable(ContentManager content);
         protected abstract List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager);
 
-        public virtual void Update(GameTime gameTime, RectangleObject heroHitbox)
+        public virtual void Update(GameTime gameTime, GameHero gameHero)
         {
-            foreach (var trigger in triggablesObjects)
+            foreach (var trigger in triggablesObjects.ToArray())
             {
-                trigger.Update(gameTime, heroHitbox);
+                trigger.Update(gameTime, gameHero.Hitbox);
             }
+
+            foreach (var trigger in triggableDrawables.ToArray()) 
+            {
+                trigger.Update(gameTime, gameHero.Hitbox);
+            }
+            gameHero.Update(gameTime);
         }
         public virtual void DrawBackground(GameTime gameTime, SpriteBatch spriteBatch)
         {
             background?.Draw(gameTime, spriteBatch);
         }
-        public virtual void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch, GameHero gameHero)
         {
-            foreach (var drawableObject in drawableObjects)
+            foreach (var drawableObject in drawableObjects.ToArray())
             {
                 drawableObject.Draw(gameTime, spriteBatch);
             }
+
+            foreach (var drawableObject in triggableDrawables.ToArray()) 
+            {
+                drawableObject.Draw(gameTime, spriteBatch);
+            }
+            gameHero.Draw(gameTime, spriteBatch);
         }
 
         public virtual List<RectangleObject> GetAdditionalBounds()
