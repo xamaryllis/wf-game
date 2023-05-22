@@ -12,20 +12,22 @@ namespace WardEscape.GameObjects.SceneObjects
     internal abstract class GameScene
     {
         protected Background background;
-        protected List<DrawableObject> drawableObjects;
+        protected List<IDrawableObject> drawableObjects;
         protected List<ITriggableObject> triggablesObjects;
+        protected List<ITriggableDrawable> triggableDrawables;
 
         public GameScene(ContentManager content, SceneManager manager)
         {
             background = LoadBackground(content);
             drawableObjects = LoadDrawable(content);
             triggablesObjects = InitTriggers(manager);
+            triggableDrawables = InitTriggableDrawable(content, manager);
         }
 
         protected abstract Background LoadBackground(ContentManager content);
-        protected abstract List<DrawableObject> LoadDrawable(ContentManager content);
         protected abstract List<ITriggableObject> InitTriggers(SceneManager manager);
-
+        protected abstract List<IDrawableObject> LoadDrawable(ContentManager content);
+        protected abstract List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager);
 
         public virtual void Update(GameTime gameTime, RectangleObject heroHitbox)
         {

@@ -4,7 +4,7 @@ using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape.GameCore.DrawableObjects
 {
-    internal class DrawableObject : BaseObject
+    internal class DrawableObject : BaseObject, IDrawableObject
     {
         protected Texture2D Sprite { get; set; }
 

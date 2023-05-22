@@ -11,7 +11,7 @@ using WardEscape.GameCore.DrawableObjects;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
-    internal class GameDialog : DrawableObject, ITriggableObject
+    internal class GameDialog : DrawableObject, ITriggableDrawable
     {
         Queue<string> dialogs;
         static readonly int PADDING = 10;

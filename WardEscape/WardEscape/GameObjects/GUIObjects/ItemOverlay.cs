@@ -9,7 +9,7 @@ using WardEscape.GameCore.DrawableObjects;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
-    internal class ItemOverlay : DrawableObject, ITriggableObject
+    internal class ItemOverlay : DrawableObject, ITriggableDrawable
     {
         static Point Position
         {

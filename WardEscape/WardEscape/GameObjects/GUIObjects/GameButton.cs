@@ -10,7 +10,7 @@ using WardEscape.GameCore.DrawableObjects;
 namespace WardEscape.GameObjects.GUIObjects
 {
     delegate void Callback();
-    internal class GameButton : DrawableObject, ITriggableObject
+    internal class GameButton : DrawableObject, ITriggableDrawable
     {
         public Callback Callback { get; set; }
         TextlabelObject TextObject { get; set; }

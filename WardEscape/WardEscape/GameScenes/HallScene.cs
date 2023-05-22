@@ -24,16 +24,20 @@ namespace WardEscape.GameScenes
         {
             return new(content.Load<Texture2D>("HallScene/Background"));
         }
-        protected override List<DrawableObject> LoadDrawable(ContentManager content)
-        {
-            return new List<DrawableObject>();
-        }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {
             SceneTrigger leftTrigger = new(new Point(-Constants.SCENE_TRIGGER_WIDTH, 0));
             leftTrigger.ChangeScene = () => manager.SetGameScene(StairsScene.NAME, new Point(1000, 50));
 
             return new List<ITriggableObject> { leftTrigger };
+        }
+        protected override List<IDrawableObject> LoadDrawable(ContentManager content)
+        {
+            return new List<IDrawableObject>();
+        }
+        protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
+        {
+            return new List<ITriggableDrawable>();
         }
     }
 }
