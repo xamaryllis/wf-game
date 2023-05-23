@@ -33,7 +33,7 @@ namespace WardEscape.GameScenes
 
             SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0))
             {
-                Callback = () => manager.SetGameScene(ToiletRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.FLOOR_LEVEL))
+                Callback = () => manager.SetGameScene(ToiletRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS))
             };
 
             return new List<ITriggableObject> { leftTrigger, rightTrigger };

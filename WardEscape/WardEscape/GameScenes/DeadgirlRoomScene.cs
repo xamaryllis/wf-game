@@ -46,7 +46,7 @@ namespace WardEscape.GameScenes
             inspectBtn.Callback = () =>
             {
                 ItemOverlay overlay = InitOverlay(content);
-                ItemOverlay = overlay;  girl.TriggableDrawable = null;
+                ItemOverlay = overlay; girl.TriggableDrawable = null;
                 overlay.Callback = () => { ItemOverlay = null; TwinsRoomScene.SweetReciveChange();  };
             };
             girl.TriggableDrawable = inspectBtn;

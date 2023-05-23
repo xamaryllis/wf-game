@@ -47,25 +47,6 @@ namespace WardEscape.GameScenes
             SweetReciveChange = SweetReciveChangeInit(content);
         }
 
-        public Callback SweetReciveChangeInit(ContentManager content)
-        {
-            return () =>
-            {
-                twins.TriggableDrawable.Callback = () =>
-                {
-                    Texture2D sprite = content.Load<Texture2D>("TwinsRoomScene/Flashlight");
-                    ItemOverlay item = new("Flashlight", sprite, content)
-                    {
-                        Callback = () => { ItemOverlay = null; }
-                    };
-
-                    GameDialog dialog = InitDialogLabel(content, PostSweetDialog);
-                    triggableDrawables.Add(dialog); twins.TriggableDrawable = null; isLocked = true;
-                    dialog.Callback = () => { ItemOverlay = item; triggableDrawables.Remove(dialog); };
-                };
-            };
-        }
-
         protected override Background LoadBackground(ContentManager content)
         {
             return new Background(content.Load<Texture2D>("TwinsRoomScene/Background"));
@@ -95,8 +76,8 @@ namespace WardEscape.GameScenes
                 dialog.Callback = () => 
                 {
                     isLocked = false;
+                    triggableDrawables.Remove(dialog);
                     twins.TriggableDrawable = dialogBtn;
-                    triggableDrawables.Remove(dialog); 
                 };
             };
             twins.TriggableDrawable = dialogBtn;
@@ -104,18 +85,37 @@ namespace WardEscape.GameScenes
             return new List<ITriggableDrawable>() { twins };
         }
 
-        private DrawableObject InitTwins(ContentManager content) 
-        {
-            Texture2D twinsSprite = content.Load<Texture2D>("TwinsRoomScene/Twins");
-
-            return new(new(400, Constants.FLOOR_LEVEL - 180), new(155, 170), twinsSprite);
-        }
         private GameButton InitButton(ContentManager content) 
         {
             int y = Constants.TRIGGER_BUTTON_SIZE.Y;
             int x = (Constants.WIDTH - Constants.TRIGGER_BUTTON_SIZE.X) / 2;
 
             return new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Start Talking", content);
+        }
+        private DrawableObject InitTwins(ContentManager content)
+        {
+            Texture2D twinsSprite = content.Load<Texture2D>("TwinsRoomScene/Twins");
+
+            return new(new(400, Constants.FLOOR_LEVEL - 180), new(155, 170), twinsSprite);
+        }
+        private ItemOverlay InitOverlay(ContentManager content) 
+        {
+            return new("Flashlight", content.Load<Texture2D>("TwinsRoomScene/Flashlight"), content);
+        }
+        private Callback SweetReciveChangeInit(ContentManager content)
+        {
+            return () =>
+            {
+                twins.TriggableDrawable.Callback = () =>
+                {
+                    ItemOverlay item = InitOverlay(content);
+                    item.Callback = () => { ItemOverlay = null; };
+
+                    GameDialog dialog = InitDialogLabel(content, PostSweetDialog);
+                    triggableDrawables.Add(dialog); twins.TriggableDrawable = null; isLocked = true;
+                    dialog.Callback = () => { ItemOverlay = item; triggableDrawables.Remove(dialog); };
+                };
+            };
         }
         private GameDialog InitDialogLabel(ContentManager content, Queue<string> dialog) 
         {
