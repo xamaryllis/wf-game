@@ -8,10 +8,12 @@ using WardEscape.GameCore;
 using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
+using WardEscape.GameCore.DrawableObjects;
+using WardEscape.GameObjects.GUIObjects;
 
 namespace WardEscape.GameScenes
 {
-    internal class DeadgirlRoomScene : GameScene
+    internal class DeadgirlRoomScene : OverlayScene
     {
         public static readonly string NAME = "DeadgirlRoom";
 
@@ -25,15 +27,50 @@ namespace WardEscape.GameScenes
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {
-            throw new System.NotImplementedException();
+            SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0))
+            {
+                Callback = () => manager.SetGameScene(HallRoomScene.NAME, new Point(605, Constants.LOWEST_HERO_POS))
+            };
+
+            return new List<ITriggableObject>() { rightTrigger };
         }
         protected override List<IDrawableObject> LoadDrawable(ContentManager content)
         {
-            throw new System.NotImplementedException();
+            return new List<IDrawableObject>();
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            throw new System.NotImplementedException();
+            TriggableDrawableTriger girl = new(InitGirl(content));
+
+            GameButton inspectBtn = InitButton(content);
+            inspectBtn.Callback = () =>
+            {
+                ItemOverlay overlay = InitOverlay(content);
+                ItemOverlay = overlay;  girl.TriggableDrawable = null;
+                overlay.Callback = () => { ItemOverlay = null; TwinsRoomScene.SweetReciveChange();  };
+            };
+            girl.TriggableDrawable = inspectBtn;
+
+            return new List<ITriggableDrawable>() { girl };
         }
+
+        private GameButton InitButton(ContentManager content)
+        {
+            int y = Constants.TRIGGER_BUTTON_SIZE.Y;
+            int x = (Constants.WIDTH - Constants.TRIGGER_BUTTON_SIZE.X) / 2;
+
+            return new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Inspect", content);
+        }
+        private ItemOverlay InitOverlay(ContentManager content) 
+        {
+            return new("Candy", content.Load<Texture2D>("DeadgirlRoomScene/Candy"), content);
+        }
+        private DrawableObject InitGirl(ContentManager content)
+        {
+            Texture2D twinsSprite = content.Load<Texture2D>("DeadgirlRoomScene/Evelina");
+
+            return new(new(300, Constants.FLOOR_LEVEL - 85), new(267, 85), twinsSprite);
+        }
+        
     }
 }

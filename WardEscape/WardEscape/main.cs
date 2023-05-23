@@ -80,8 +80,8 @@ namespace WardEscape
 
             sceneManager = new SceneManager(gameHero);
 
-            int width = 437;
-            int height = 434;
+            int width = 288;
+            int height = 91;
 
             Color[] data1 = new Color[width * height];
             for (int i = 0; i < width * height; i++)
@@ -96,9 +96,9 @@ namespace WardEscape
             sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
             sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
             sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
-            //sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
+            sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
             
-            sceneManager.SetGameScene(ToiletRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+            sceneManager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
         }
 
         protected override void Update(GameTime gameTime)
@@ -107,7 +107,7 @@ namespace WardEscape
                 Exit();
 
             MouseStateObject.Update(gameTime);
-            button.Update(gameTime, gameHero.Hitbox);
+            //button.Update(gameTime, gameHero.Hitbox);
             sceneManager.Update(gameTime); base.Update(gameTime);
         }
 
@@ -118,9 +118,9 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            //_spriteBatch.Draw(rect1, new Vector2(600, Constants.FLOOR_LEVEL - 434), Color.White);
+            // _spriteBatch.Draw(rect1, new Vector2(300, Constants.FLOOR_LEVEL - 107), Color.White);
 
-            button.Draw(gameTime, _spriteBatch);
+            //button.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
 

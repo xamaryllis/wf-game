@@ -57,7 +57,7 @@ namespace WardEscape.GameScenes
             };
             GameButton room421 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
             {
-                Callback = () => { manager.SetGameScene(StartingRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
+                Callback = () => { manager.SetGameScene(DeadgirlRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
             GameButton room422 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
             {
