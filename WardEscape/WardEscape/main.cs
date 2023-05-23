@@ -10,6 +10,7 @@ using WardEscape.GameScenes;
 using WardEscape.GameObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
+using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape
 {
@@ -79,8 +80,8 @@ namespace WardEscape
 
             sceneManager = new SceneManager(gameHero);
 
-            int width = 145;
-            int height = 168;
+            int width = 437;
+            int height = 434;
 
             Color[] data1 = new Color[width * height];
             for (int i = 0; i < width * height; i++)
@@ -92,12 +93,12 @@ namespace WardEscape
             //sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager), EricRoomScene.NAME);
             sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
             sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
-            //sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
+            sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
             sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
             sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
             //sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
             
-            sceneManager.SetGameScene(TwinsRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+            sceneManager.SetGameScene(ToiletRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
         }
 
         protected override void Update(GameTime gameTime)
@@ -117,7 +118,7 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            //_spriteBatch.Draw(rect1, new Vector2(290, Constants.FLOOR_LEVEL - 158), Color.White);
+            //_spriteBatch.Draw(rect1, new Vector2(600, Constants.FLOOR_LEVEL - 434), Color.White);
 
             button.Draw(gameTime, _spriteBatch);
 

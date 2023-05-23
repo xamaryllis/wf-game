@@ -61,7 +61,7 @@ namespace WardEscape.GameScenes
         {
             SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0))
             {
-                ChangeScene = () => manager.SetGameScene(HallRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS))
+                Callback = () => manager.SetGameScene(HallRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS))
             };
 
             return new List<ITriggableObject>() { rightTrigger };

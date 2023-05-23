@@ -28,10 +28,15 @@ namespace WardEscape.GameScenes
         {
             SceneTrigger leftTrigger = new(new Point(-Constants.SCENE_TRIGGER_WIDTH, 0))
             {
-                ChangeScene = () => manager.SetGameScene(StairsRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, 50))
+                Callback = () => manager.SetGameScene(StairsRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, 50))
             };
 
-            return new List<ITriggableObject> { leftTrigger };
+            SceneTrigger rightTrigger = new(new Point(Constants.WIDTH + Constants.SCENE_TRIGGER_WIDTH, 0))
+            {
+                Callback = () => manager.SetGameScene(ToiletRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.FLOOR_LEVEL))
+            };
+
+            return new List<ITriggableObject> { leftTrigger, rightTrigger };
         }
         protected override List<IDrawableObject> LoadDrawable(ContentManager content)
         {
@@ -59,10 +64,10 @@ namespace WardEscape.GameScenes
                 Callback = () => { manager.SetGameScene(StartingRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
 
-            ButtonTriger room419Trigger = new(new(179, 308), new(86, 262)) { GameButton = room419 };
-            ButtonTriger room420Trigger = new(new(392, 308), new(86, 262)) { GameButton = room420 };
-            ButtonTriger room421Trigger = new(new(605, 308), new(86, 262)) { GameButton = room421 };
-            ButtonTriger room422Trigger = new(new(818, 308), new(86, 262)) { GameButton = room422 };
+            TriggableDrawableTriger room419Trigger = new(new(new(179, 308), new(86, 262), null)) { TriggableDrawable = room419 };
+            TriggableDrawableTriger room420Trigger = new(new(new(392, 308), new(86, 262), null)) { TriggableDrawable = room420 };
+            TriggableDrawableTriger room421Trigger = new(new(new(605, 308), new(86, 262), null)) { TriggableDrawable = room421 };
+            TriggableDrawableTriger room422Trigger = new(new(new(818, 308), new(86, 262), null)) { TriggableDrawable = room422 };
 
             return new List<ITriggableDrawable>() { room419Trigger, room420Trigger, room421Trigger, room422Trigger };
         }

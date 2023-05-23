@@ -5,11 +5,9 @@ using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape.GameObjects.SceneObjects
 {
-    delegate void ChangeScene();
-
     internal class SceneTrigger : BaseObject, ITriggableObject
     {
-        public ChangeScene ChangeScene { get; set; }
+        public Callback Callback { get; set; }
 
         public SceneTrigger(Point position)
             : base(position, new(Constants.SCENE_TRIGGER_WIDTH, Constants.HEIGHT))
@@ -20,7 +18,7 @@ namespace WardEscape.GameObjects.SceneObjects
 
         public void Update(GameTime gameTime, RectangleObject hitbox)
         {
-            if (Hitbox.Intersects(hitbox)) ChangeScene();
+            if (Hitbox.Intersects(hitbox)) Callback();
         }
     }
 }

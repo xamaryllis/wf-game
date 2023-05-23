@@ -9,15 +9,16 @@ using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameObjects.GUIObjects;
+using WardEscape.GameCore.DrawableObjects;
 
 namespace WardEscape.GameScenes
 {
     internal class TwinsRoomScene : OverlayScene
     {
-        ButtonTriger twins;
+        TriggableDrawableTriger twins;
         public static readonly string NAME = "TwinsRoom";
 
-        static Queue<string> preSweetDialog
+        static Queue<string> PreSweetDialog
         {
             get => new(new string[]
             {
@@ -31,7 +32,7 @@ namespace WardEscape.GameScenes
                 "Edna: Will try."
             });
         }
-        static Queue<string> postSweetDialog
+        static Queue<string> PostSweetDialog
         {
             get => new(new string[]
             {
@@ -50,7 +51,7 @@ namespace WardEscape.GameScenes
         {
             return () =>
             {
-                twins.GameButton.Callback = () =>
+                twins.TriggableDrawable.Callback = () =>
                 {
                     Texture2D sprite = content.Load<Texture2D>("TwinsRoomScene/Flashlight");
                     ItemOverlay item = new("Flashlight", sprite, content)
@@ -58,8 +59,8 @@ namespace WardEscape.GameScenes
                         Callback = () => { ItemOverlay = null; }
                     };
 
-                    GameDialog dialog = InitDialogLabel(content, postSweetDialog);
-                    triggableDrawables.Add(dialog); twins.GameButton = null;
+                    GameDialog dialog = InitDialogLabel(content, PostSweetDialog);
+                    triggableDrawables.Add(dialog); twins.TriggableDrawable = null; isLocked = true;
                     dialog.Callback = () => { ItemOverlay = item; triggableDrawables.Remove(dialog); };
                 };
             };
@@ -73,7 +74,7 @@ namespace WardEscape.GameScenes
         {
             SceneTrigger leftTrigger = new(new Point(-Constants.SCENE_TRIGGER_WIDTH, 0))
             {
-                ChangeScene = () => manager.SetGameScene(HallRoomScene.NAME, new(179, Constants.LOWEST_HERO_POS))
+                Callback = () => manager.SetGameScene(HallRoomScene.NAME, new(179, Constants.LOWEST_HERO_POS))
             };
 
             return new List<ITriggableObject> { leftTrigger };
@@ -84,30 +85,39 @@ namespace WardEscape.GameScenes
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
+            twins = new(InitTwins(content));
+            
             GameButton dialogBtn = InitButton(content);
-
-            Point twinsPos = new(400, Constants.FLOOR_LEVEL - 180);
-            Texture2D twinsSprite = content.Load<Texture2D>("TwinsRoomScene/Twins");
-            twins = new(twinsPos, new(155, 170), twinsSprite) { GameButton = dialogBtn };
-
             dialogBtn.Callback = () => 
             {
-                GameDialog dialog = InitDialogLabel(content, preSweetDialog);
-                triggableDrawables.Add(dialog); twins.GameButton = null; isLocked = true;
-                dialog.Callback = () => { triggableDrawables.Remove(dialog); twins.GameButton = dialogBtn; isLocked = false; };
+                GameDialog dialog = InitDialogLabel(content, PreSweetDialog);
+                triggableDrawables.Add(dialog); twins.TriggableDrawable = null; isLocked = true;
+                dialog.Callback = () => 
+                {
+                    isLocked = false;
+                    twins.TriggableDrawable = dialogBtn;
+                    triggableDrawables.Remove(dialog); 
+                };
             };
+            twins.TriggableDrawable = dialogBtn;
 
             return new List<ITriggableDrawable>() { twins };
         }
 
-        private static GameButton InitButton(ContentManager content) 
+        private DrawableObject InitTwins(ContentManager content) 
+        {
+            Texture2D twinsSprite = content.Load<Texture2D>("TwinsRoomScene/Twins");
+
+            return new(new(400, Constants.FLOOR_LEVEL - 180), new(155, 170), twinsSprite);
+        }
+        private GameButton InitButton(ContentManager content) 
         {
             int y = Constants.TRIGGER_BUTTON_SIZE.Y;
             int x = (Constants.WIDTH - Constants.TRIGGER_BUTTON_SIZE.X) / 2;
 
             return new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Start Talking", content);
         }
-        private static GameDialog InitDialogLabel(ContentManager content, Queue<string> dialog) 
+        private GameDialog InitDialogLabel(ContentManager content, Queue<string> dialog) 
         {
             int y = Constants.DIALOG_LABEL_Y_OFFSET;
             int x = (Constants.WIDTH - Constants.DIALOG_LABEL_SIZE.X) / 2;

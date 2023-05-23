@@ -21,6 +21,7 @@ namespace WardEscape.GameCore.DrawableObjects
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (Sprite == null) return;
             spriteBatch.Draw(Sprite, Hitbox, Color.White);
         }
     }
