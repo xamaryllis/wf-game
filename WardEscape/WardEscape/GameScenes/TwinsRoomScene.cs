@@ -12,7 +12,7 @@ using WardEscape.GameObjects.GUIObjects;
 
 namespace WardEscape.GameScenes
 {
-    internal class TwinsRoomScene : GameScene
+    internal class TwinsRoomScene : OverlayScene
     {
         ButtonTriger twins;
         public static readonly string NAME = "TwinsRoom";
@@ -53,12 +53,14 @@ namespace WardEscape.GameScenes
                 twins.GameButton.Callback = () =>
                 {
                     Texture2D sprite = content.Load<Texture2D>("TwinsRoomScene/Flashlight");
-                    ItemOverlay item = new("Flashlight", sprite, content);
-                    item.Callback = () => { triggableDrawables.Remove(item); };
+                    ItemOverlay item = new("Flashlight", sprite, content)
+                    {
+                        Callback = () => { ItemOverlay = null; }
+                    };
 
                     GameDialog dialog = InitDialogLabel(content, postSweetDialog);
                     triggableDrawables.Add(dialog); twins.GameButton = null;
-                    dialog.Callback = () => { triggableDrawables.Add(item); triggableDrawables.Remove(dialog); };
+                    dialog.Callback = () => { ItemOverlay = item; triggableDrawables.Remove(dialog); };
                 };
             };
         }
@@ -91,8 +93,8 @@ namespace WardEscape.GameScenes
             dialogBtn.Callback = () => 
             {
                 GameDialog dialog = InitDialogLabel(content, preSweetDialog);
-                triggableDrawables.Add(dialog); twins.GameButton = null;
-                dialog.Callback = () => { triggableDrawables.Remove(dialog); twins.GameButton = dialogBtn; };
+                triggableDrawables.Add(dialog); twins.GameButton = null; isLocked = true;
+                dialog.Callback = () => { triggableDrawables.Remove(dialog); twins.GameButton = dialogBtn; isLocked = false; };
             };
 
             return new List<ITriggableDrawable>() { twins };

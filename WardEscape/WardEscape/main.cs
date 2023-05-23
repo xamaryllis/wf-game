@@ -66,7 +66,6 @@ namespace WardEscape
                 "Sam: We will all burn in hell...",
                 "Dean: Shut the f*ck up Sam! I'm sick of you... Hey Edna, can you bring me something sweet?",
                 "Edna: Will try."
-
             });
             Callback callback = () => { TwinsRoomScene.SweetReciveChange(); };
 
