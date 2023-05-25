@@ -83,6 +83,7 @@ namespace WardEscape.GameObjects
             {
                 content.Load<Texture2D>("GameHero/Edna_1"),
                 content.Load<Texture2D>("GameHero/Edna_2"),
+                content.Load<Texture2D>("GameHero/Edna_2"),
                 content.Load<Texture2D>("GameHero/Edna_1"),
             };
             return sprites;

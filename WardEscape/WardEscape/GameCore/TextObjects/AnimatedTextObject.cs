@@ -2,13 +2,15 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct3D9;
 
 namespace WardEscape.GameCore.TextObjects
 {
     internal class AnimatedTextObject : TextlabelObject
     {
-        static readonly int SPEED = 50;
+        int timeCount = 0;
+
+        static readonly int PERIOD = 50;
+
         StringBuilder drawableText, textToDraw;
 
         public bool IsEnded { get => textToDraw.Length == 0; }
@@ -40,8 +42,12 @@ namespace WardEscape.GameCore.TextObjects
 
         private void Animate(GameTime gameTime) 
         {
-            if (gameTime.TotalGameTime.Milliseconds % SPEED == 0) 
+            timeCount += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (timeCount > PERIOD)
             {
+                timeCount -= PERIOD;
+
                 if (textToDraw.Length <= 0) return; 
                 
                 drawableText.Append(textToDraw[0]);

@@ -1,14 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
 using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape.GameCore.DrawableObjects
 {
     internal class AnimatedObject : DrawableObject
     {
+        int timeCount = 0;
         int animationCount = 0;
-        static int MILLISECOND = 1000;
+        
+        static readonly int PERIOD = 300;
         
         List<Texture2D> Sprites { get; set; }
 
@@ -29,8 +34,11 @@ namespace WardEscape.GameCore.DrawableObjects
         }
         protected void Animate(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime.Milliseconds % (MILLISECOND / Sprites.Count) == 0)
+            timeCount += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (timeCount > PERIOD) 
             {
+                timeCount -= PERIOD;
                 animationCount = (animationCount + 1) % Sprites.Count;
             }
             Sprite = Sprites[animationCount];
