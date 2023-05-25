@@ -36,8 +36,6 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
             {
-                if (!MouseStateObject.IsClicked()) return;
-
                 if (!TextObject.IsEnded)
                 {
                     TextObject.SkipAnimation();
@@ -45,8 +43,8 @@ namespace WardEscape.GameObjects.GUIObjects
                 else if (dialogs.Count != 0)
                 {
                     TextObject.UpdateText(dialogs.Dequeue(), Hitbox.Width - 2 * PADDING);
-                } 
-                else Callback();
+                }
+                else Callback?.Invoke();
             }
         }
 

@@ -36,7 +36,7 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
             {
-                if (MouseStateObject.IsClicked()) Callback();
+                if (MouseStateObject.IsClicked()) Callback?.Invoke();
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

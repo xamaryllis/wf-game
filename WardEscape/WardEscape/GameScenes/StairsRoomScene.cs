@@ -8,12 +8,13 @@ using WardEscape.GameCore;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects;
+using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameScenes.HallRoom;
 
 namespace WardEscape.GameScenes
 {
-    internal class StairsRoomScene : GameScene
+    internal class StairsRoomScene : HeroHideScene
     {
         public static readonly string NAME = "StairsRoom";
         
@@ -76,7 +77,45 @@ namespace WardEscape.GameScenes
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            return new List<ITriggableDrawable>();
+            SecurityTrigger security = new(InitSecurity(content));
+            security.Callback = () =>
+            {
+                GameWallpaper lose = InitLostPaper(content);
+                triggableDrawables.Add(lose); isVisible = false;
+
+                lose.Callback = () => 
+                { 
+                    triggableDrawables.Remove(lose); isVisible = true;
+                    manager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+                };
+            };
+            return new List<ITriggableDrawable>() { security };
+        }
+
+        private Security InitSecurity(ContentManager content)
+        {
+            List<Texture2D> securitySprites = new()
+            {
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_1"),
+                content.Load<Texture2D>("StairsRoomScene/Security_2"),
+                content.Load<Texture2D>("StairsRoomScene/Security_2"),
+                content.Load<Texture2D>("StairsRoomScene/Security_2"),
+                content.Load<Texture2D>("StairsRoomScene/Security_3"),
+                content.Load<Texture2D>("StairsRoomScene/Security_3"),
+                content.Load<Texture2D>("StairsRoomScene/Security_3"),
+            };
+            Texture2D watchSprite = content.Load<Texture2D>("StairsRoomScene/Security_2");
+
+            return new(new(800, Constants.FLOOR_LEVEL - 164), new(117, 214), securitySprites, watchSprite);
+        }
+        private GameWallpaper InitLostPaper(ContentManager content) 
+        {
+            return new(content.Load<Texture2D>("GameEndPapers/Lose"));
         }
     }
 }
