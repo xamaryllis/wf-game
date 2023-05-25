@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +12,7 @@ using WardEscape.GameObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameCore.BaseObjects;
+using WardEscape.GameScenes.HallRoom;
 
 namespace WardEscape
 {
@@ -26,8 +28,6 @@ namespace WardEscape
         private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
 
-        Texture2D rect1;
-
         GameButton button;
         GameDialog gameDialog;
         CandyItem candyItem;
@@ -37,7 +37,10 @@ namespace WardEscape
 
         public Main()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8
+            };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -80,25 +83,15 @@ namespace WardEscape
 
             sceneManager = new SceneManager(gameHero);
 
-            int width = 80;
-            int height = 157;
-
-            Color[] data1 = new Color[width * height];
-            for (int i = 0; i < width * height; i++)
-            {
-                data1[i] = Color.Red;
-            }
-            rect1 = new(GraphicsDevice, width, height); rect1.SetData(data1);
-
-            sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager), EricRoomScene.NAME);
             sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
             sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
             sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
             sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
             sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
             sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
-            
-            sceneManager.SetGameScene(EricRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+            sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager, GraphicsDevice), EricRoomScene.NAME);
+
+            sceneManager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
         }
 
         protected override void Update(GameTime gameTime)
@@ -113,14 +106,11 @@ namespace WardEscape
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            _spriteBatch.Draw(rect1, new Vector2(100, Constants.FLOOR_LEVEL - 157), Color.White);
-
-            //button.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
 

@@ -10,7 +10,7 @@ using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
 
-namespace WardEscape.GameScenes
+namespace WardEscape.GameScenes.HallRoom
 {
     internal class HallRoomScene : GameScene
     {
@@ -47,21 +47,21 @@ namespace WardEscape.GameScenes
             int y = Constants.TRIGGER_BUTTON_SIZE.Y;
             int x = (Constants.WIDTH - Constants.TRIGGER_BUTTON_SIZE.X) / 2;
 
-            GameButton room419 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
+            GameButton room419 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Come in", content)
             {
                 Callback = () => { manager.SetGameScene(TwinsRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
-            GameButton room420 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
+            GameButton room420 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Come in", content)
             {
                 Callback = () => { manager.SetGameScene(StartingRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
-            GameButton room421 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
+            GameButton room421 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Come in", content)
             {
                 Callback = () => { manager.SetGameScene(DeadgirlRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
-            GameButton room422 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Enter", content)
+            GameButton room422 = new(new(x, y), Constants.TRIGGER_BUTTON_SIZE, "Come in", content)
             {
-                Callback = () => { manager.SetGameScene(StartingRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
+                Callback = () => { manager.SetGameScene(EricRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
 
             TriggableDrawableTriger room419Trigger = new(new(new(179, 308), new(86, 262), null)) { TriggableDrawable = room419 };

@@ -10,6 +10,7 @@ using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameCore.DrawableObjects;
+using WardEscape.GameScenes.HallRoom;
 
 namespace WardEscape.GameScenes
 {
@@ -109,7 +110,7 @@ namespace WardEscape.GameScenes
                 twins.TriggableDrawable.Callback = () =>
                 {
                     ItemOverlay item = InitOverlay(content);
-                    item.Callback = () => { ItemOverlay = null; };
+                    item.Callback = () => { ItemOverlay = null; EricRoomScene.haveFlashlight = true; };
 
                     GameDialog dialog = InitDialogLabel(content, PostSweetDialog);
                     triggableDrawables.Add(dialog); twins.TriggableDrawable = null; isLocked = true;

@@ -15,7 +15,7 @@ namespace WardEscape.GameCore
         public static readonly Point MOUSE_SIZE = new(5, 5);
         public static readonly Point HERO_SIZE = new(81, 200);
         public static readonly Point WINDOW = new(WIDTH, HEIGHT);
-        public static readonly Point DIALOG_LABEL_SIZE = new(500, 150);
+        public static readonly Point DIALOG_LABEL_SIZE = new(500, 175);
         public static readonly Point TRIGGER_BUTTON_SIZE = new(175, 70);
 
         public static readonly int LEFTEST_HERO_POS = SCENE_TRIGGER_WIDTH;
