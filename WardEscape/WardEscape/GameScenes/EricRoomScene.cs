@@ -23,7 +23,7 @@ namespace WardEscape.GameScenes
         DepthStencilState maskStencil;
         DepthStencilState backgroundStencil;
 
-        public static bool haveFlashlight = false;
+        public static bool haveFlashlight = true;
         public static readonly string NAME = "EricRoom";
 
         static Queue<string> EricDialog
@@ -35,7 +35,7 @@ namespace WardEscape.GameScenes
                 "Edna: Yesterday?",
                 "Ernest: I lost track of time here...",
                 "Edna: Were they 263?",
-                "Ernest: Miss! They were 262!",
+                $"Ernest: Miss! They were {LockRoomScene.PASSWORD}!",
                 "Edna: Exactly!"
             });
         }

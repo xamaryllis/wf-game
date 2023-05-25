@@ -65,29 +65,22 @@ namespace WardEscape.GameScenes
             {
                 Callback = () => manager.SetGameScene(HallRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS))
             };
+            SceneTrigger leftTrigger = new(new Point(-Constants.SCENE_TRIGGER_WIDTH, 0))
+            {
+                Callback = () => manager.SetGameScene(LockRoomScene.NAME, Point.Zero)
+            };
 
-            return new List<ITriggableObject>() { rightTrigger };
+            return new List<ITriggableObject>() { rightTrigger, leftTrigger };
         }
         protected override List<IDrawableObject> LoadDrawable(ContentManager content)
         {
-            return new List<IDrawableObject>()
-            {
-                new DrawableObject(Point.Zero, Constants.WINDOW, content.Load<Texture2D>("StairsRoomScene/Rails")),
-            };
+            return new List<IDrawableObject>() { InitRails(content) };
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            SecurityTrigger security = new(InitSecurity(content));
-            security.Callback = () =>
+            SecurityTrigger security = new(InitSecurity(content))
             {
-                GameWallpaper lose = InitLostPaper(content);
-                triggableDrawables.Add(lose); isVisible = false;
-
-                lose.Callback = () => 
-                { 
-                    triggableDrawables.Remove(lose); isVisible = true;
-                    manager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
-                };
+                Callback = () => { manager.SetGameScene(LoseScene.NAME, Point.Zero); }
             };
             return new List<ITriggableDrawable>() { security };
         }
@@ -113,9 +106,9 @@ namespace WardEscape.GameScenes
 
             return new(new(800, Constants.FLOOR_LEVEL - 164), new(117, 214), securitySprites, watchSprite);
         }
-        private GameWallpaper InitLostPaper(ContentManager content) 
+        private DrawableObject InitRails(ContentManager content)
         {
-            return new(content.Load<Texture2D>("GameEndPapers/Lose"));
+            return new(Point.Zero, Constants.WINDOW, content.Load<Texture2D>("StairsRoomScene/Rails"));
         }
     }
 }

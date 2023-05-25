@@ -51,8 +51,8 @@ namespace WardEscape
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             gameHero = new GameHero(Content, new Point(100, Constants.HEIGHT - 50));
 
-            int width = 117;
-            int height = 214;
+            int width = 82;
+            int height = 82;
 
             Color[] color = new Color[width * height];
             for (int i = 0; i < width * height; i++) 
@@ -63,6 +63,9 @@ namespace WardEscape
 
             sceneManager = new SceneManager(gameHero);
 
+            sceneManager.AddGameScene(new WinScene(Content, sceneManager), WinScene.NAME);
+            sceneManager.AddGameScene(new LoseScene(Content, sceneManager), LoseScene.NAME);
+            sceneManager.AddGameScene(new LockRoomScene(Content, sceneManager), LockRoomScene.NAME);
             sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
             sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
             sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
@@ -71,7 +74,7 @@ namespace WardEscape
             sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
             sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager, GraphicsDevice), EricRoomScene.NAME);
 
-            sceneManager.SetGameScene(StairsRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+            sceneManager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,7 +93,7 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            //_spriteBatch.Draw(rect1, new Vector2(800, Constants.FLOOR_LEVEL - 214), Color.White);
+            //_spriteBatch.Draw(rect1, new Vector2(510, 136), Color.White);
 
             _spriteBatch.End();
 
