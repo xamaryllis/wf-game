@@ -9,6 +9,7 @@ using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameScenes.HallRoom;
+using WardEscape.GameObjects.GameTriggers;
 
 namespace WardEscape.GameScenes
 {

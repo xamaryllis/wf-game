@@ -7,16 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 using WardEscape.GameCore;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.TextObjects;
-using WardEscape.GameCore.DrawableObjects;
+
+using WardEscape.SpecialTypes;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
-    internal class GameDialog : DrawableObject, ITriggableDrawable
+    internal class GameDialog : DrawableClickableObject
     {
         Queue<string> dialogs;
         static readonly int PADDING = 10;
 
-        public Callback Callback { get; set; }
         AnimatedTextObject TextObject { get; set; }
         
         public GameDialog(Point position, Point size, Queue<string> dialogs, ContentManager content) 
@@ -32,10 +32,12 @@ namespace WardEscape.GameObjects.GUIObjects
             base.Draw(gameTime, spriteBatch);
             TextObject.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime, RectangleObject hitbox)
+        public override void Update(GameTime gameTime, RectangleObject hitbox)
         {
             if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
             {
+                if (!MouseStateObject.IsClicked()) return;
+
                 if (!TextObject.IsEnded)
                 {
                     TextObject.SkipAnimation();

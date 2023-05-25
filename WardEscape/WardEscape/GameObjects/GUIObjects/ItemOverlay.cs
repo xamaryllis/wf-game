@@ -4,12 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using WardEscape.GameCore;
 using WardEscape.GameCore.TextObjects;
-using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.DrawableObjects;
+
+using WardEscape.SpecialTypes;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
-    internal class ItemOverlay : DrawableObject, ITriggableDrawable
+    internal class ItemOverlay : DrawableClickableObject
     {
         static Point Position
         {
@@ -20,7 +21,6 @@ namespace WardEscape.GameObjects.GUIObjects
         static readonly Point ITEMSIZE = new(250, 210);
 
         DrawableObject Item { get; set; }
-        public Callback Callback { get; set; }
         TextlabelObject Textlabel { get; set; }
         TransperentBackground Background { get; set; }
 
@@ -31,14 +31,7 @@ namespace WardEscape.GameObjects.GUIObjects
             Background = InitBackground(content);
             Textlabel = InitLabel(itemName, content);
         }
-
-        public void Update(GameTime gameTime, RectangleObject hitbox)
-        {
-            if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
-            {
-                if (MouseStateObject.IsClicked()) Callback?.Invoke();
-            }
-        }
+        
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Background.Draw(gameTime, spriteBatch);

@@ -8,6 +8,7 @@ using WardEscape.GameCore;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects;
+using WardEscape.GameObjects.GameTriggers;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameScenes.HallRoom;
@@ -40,7 +41,6 @@ namespace WardEscape.GameScenes
 
             return baseBounds;
         }
-
         public override void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch, GameHero gameHero)
         {
             gameHero.Draw(gameTime, spriteBatch);

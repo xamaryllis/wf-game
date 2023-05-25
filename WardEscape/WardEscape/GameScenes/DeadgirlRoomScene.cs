@@ -11,6 +11,7 @@ using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameScenes.HallRoom;
+using WardEscape.GameObjects.GameTriggers;
 
 namespace WardEscape.GameScenes
 {
@@ -41,7 +42,7 @@ namespace WardEscape.GameScenes
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            TriggableDrawableTriger girl = new(InitGirl(content));
+            TriggableDrawableTrigger girl = new(InitGirl(content));
 
             GameButton inspectBtn = InitButton(content);
             inspectBtn.Callback = () =>

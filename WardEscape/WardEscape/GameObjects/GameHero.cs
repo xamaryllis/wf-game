@@ -36,7 +36,7 @@ namespace WardEscape.GameObjects
         #endregion
 
         #region CreationHooks
-        protected override AnimatedObjectAux AnimatedAux(RectangleObject hitbox, List<Texture2D> sprites, AnimatedPhysicsObject obj)
+        protected override AnimatedObjectAux AnimatedAux(RectangleObject hitbox, List<Texture2D> sprites)
         {
             return new AnimatedHeroAux(hitbox, sprites, this);
         }

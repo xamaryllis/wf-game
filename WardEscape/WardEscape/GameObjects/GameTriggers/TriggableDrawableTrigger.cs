@@ -3,21 +3,21 @@ using Microsoft.Xna.Framework.Graphics;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameCore.DrawableObjects;
 
-namespace WardEscape.GameObjects.GUIObjects
+namespace WardEscape.GameObjects.GameTriggers
 {
-    internal class TriggableDrawableTriger : ITriggableDrawable
+    internal class TriggableDrawableTrigger : ITriggableDrawable
     {
         bool isVisible = false;
-        
+
         private DrawableObject Drawable { get; set; }
         public ITriggableDrawable TriggableDrawable { get; set; }
-        public Callback Callback 
+        public Callback Callback
         {
-            get => TriggableDrawable.Callback; 
-            set => TriggableDrawable.Callback = value; 
+            get => TriggableDrawable.Callback;
+            set => TriggableDrawable.Callback = value;
         }
 
-        public TriggableDrawableTriger(DrawableObject drawable) 
+        public TriggableDrawableTrigger(DrawableObject drawable)
         {
             Drawable = drawable;
         }
@@ -31,7 +31,7 @@ namespace WardEscape.GameObjects.GUIObjects
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Drawable.Draw(gameTime, spriteBatch);
-            
+
             if (isVisible) TriggableDrawable?.Draw(gameTime, spriteBatch);
         }
     }

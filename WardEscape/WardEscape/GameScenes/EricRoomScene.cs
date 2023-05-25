@@ -12,6 +12,7 @@ using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameScenes.HallRoom;
+using WardEscape.GameObjects.GameTriggers;
 
 namespace WardEscape.GameScenes
 {
@@ -114,7 +115,7 @@ namespace WardEscape.GameScenes
                     trigger.Update(gameTime, gameHero.Hitbox);
                 }
             }
-            gameHero.Update(gameTime);
+            if (!isLocked) gameHero.Update(gameTime);
         }
 
         protected override Background LoadBackground(ContentManager content)
@@ -136,7 +137,7 @@ namespace WardEscape.GameScenes
         }
         protected override List<ITriggableDrawable> InitTriggableDrawable(ContentManager content, SceneManager manager)
         {
-            TriggableDrawableTriger trigger = InitTrigger();
+            TriggableDrawableTrigger trigger = InitTrigger();
 
             GameButton dialogBtn = InitButton(content);
             dialogBtn.Callback = () =>
@@ -155,7 +156,7 @@ namespace WardEscape.GameScenes
             return new List<ITriggableDrawable>() { trigger };
         }
 
-        private TriggableDrawableTriger InitTrigger() 
+        private TriggableDrawableTrigger InitTrigger() 
         {
             return new(new(new(100, Constants.FLOOR_LEVEL - 157), new(80, 157), null));
         }

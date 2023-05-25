@@ -3,7 +3,7 @@
 using WardEscape.GameCore;
 using WardEscape.GameCore.BaseObjects;
 
-namespace WardEscape.GameObjects.SceneObjects
+namespace WardEscape.GameObjects.GameTriggers
 {
     internal class SceneTrigger : BaseObject, ITriggableObject
     {

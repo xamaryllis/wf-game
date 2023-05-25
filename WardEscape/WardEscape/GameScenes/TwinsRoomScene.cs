@@ -11,12 +11,13 @@ using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameCore.DrawableObjects;
 using WardEscape.GameScenes.HallRoom;
+using WardEscape.GameObjects.GameTriggers;
 
 namespace WardEscape.GameScenes
 {
     internal class TwinsRoomScene : OverlayScene
     {
-        TriggableDrawableTriger twins;
+        TriggableDrawableTrigger twins;
         public static readonly string NAME = "TwinsRoom";
 
         static Queue<string> PreSweetDialog

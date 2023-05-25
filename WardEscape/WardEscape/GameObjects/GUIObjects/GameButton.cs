@@ -2,16 +2,13 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using WardEscape.GameCore;
-using WardEscape.GameCore.BaseObjects;
+using WardEscape.SpecialTypes;
 using WardEscape.GameCore.TextObjects;
-using WardEscape.GameCore.DrawableObjects;
 
 namespace WardEscape.GameObjects.GUIObjects
 {
-    internal class GameButton : DrawableObject, ITriggableDrawable
+    internal class GameButton : DrawableClickableObject
     {
-        public Callback Callback { get; set; }
         TextlabelObject TextObject { get; set; }
         
         public GameButton(Point position, Point size, string text, ContentManager content)
@@ -24,13 +21,6 @@ namespace WardEscape.GameObjects.GUIObjects
         {
             base.Draw(gameTime, spriteBatch);
             TextObject.Draw(gameTime, spriteBatch);
-        }
-        public void Update(GameTime gameTime, RectangleObject hitbox)
-        {
-            if (Hitbox.Intersects(MouseStateObject.GetHitbox()))
-            {
-                if (MouseStateObject.IsClicked()) Callback?.Invoke();
-            }
         }
 
         private static TextlabelObject InitTextlabel(Point btnPos, Point btnSize, string text, ContentManager content) 

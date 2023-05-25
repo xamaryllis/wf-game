@@ -9,6 +9,7 @@ using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
+using WardEscape.GameObjects.GameTriggers;
 
 namespace WardEscape.GameScenes.HallRoom
 {
@@ -64,10 +65,10 @@ namespace WardEscape.GameScenes.HallRoom
                 Callback = () => { manager.SetGameScene(EricRoomScene.NAME, new(Constants.RIGHTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
             };
 
-            TriggableDrawableTriger room419Trigger = new(new(new(179, 308), new(86, 262), null)) { TriggableDrawable = room419 };
-            TriggableDrawableTriger room420Trigger = new(new(new(392, 308), new(86, 262), null)) { TriggableDrawable = room420 };
-            TriggableDrawableTriger room421Trigger = new(new(new(605, 308), new(86, 262), null)) { TriggableDrawable = room421 };
-            TriggableDrawableTriger room422Trigger = new(new(new(818, 308), new(86, 262), null)) { TriggableDrawable = room422 };
+            TriggableDrawableTrigger room419Trigger = new(new(new(179, 308), new(86, 262), null)) { TriggableDrawable = room419 };
+            TriggableDrawableTrigger room420Trigger = new(new(new(392, 308), new(86, 262), null)) { TriggableDrawable = room420 };
+            TriggableDrawableTrigger room421Trigger = new(new(new(605, 308), new(86, 262), null)) { TriggableDrawable = room421 };
+            TriggableDrawableTrigger room422Trigger = new(new(new(818, 308), new(86, 262), null)) { TriggableDrawable = room422 };
 
             return new List<ITriggableDrawable>() { room419Trigger, room420Trigger, room421Trigger, room422Trigger };
         }

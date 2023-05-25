@@ -52,11 +52,11 @@ namespace WardEscape.SpecialTypes
         protected AnimatedObjectAux animatedObject;
 
         #region CreationHooks
-        protected virtual PhysicsObjectAux PhysicsAux(RectangleObject hitbox, AnimatedPhysicsObject obj)
+        protected virtual PhysicsObjectAux PhysicsAux(RectangleObject hitbox)
         {
             return new(hitbox, this);
         }
-        protected virtual AnimatedObjectAux AnimatedAux(RectangleObject hitbox, List<Texture2D> sprites, AnimatedPhysicsObject obj)
+        protected virtual AnimatedObjectAux AnimatedAux(RectangleObject hitbox, List<Texture2D> sprites)
         {
             return new(hitbox, sprites, this);
         }
@@ -66,8 +66,8 @@ namespace WardEscape.SpecialTypes
         {
             hitbox = new(position, size);
 
-            physicsObject = PhysicsAux(hitbox, this);
-            animatedObject = AnimatedAux(hitbox, sprites, this);
+            physicsObject = PhysicsAux(hitbox);
+            animatedObject = AnimatedAux(hitbox, sprites);
         }
 
         public static implicit operator PhysicsObject(AnimatedPhysicsObject obj)
