@@ -9,6 +9,7 @@ using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameObjects.GameTriggers;
+using WardEscape.GameScenes.GameMenu;
 
 namespace WardEscape.GameScenes
 {
@@ -23,13 +24,13 @@ namespace WardEscape.GameScenes
 
         protected override Background LoadBackground(ContentManager content)
         {
-            return new Background(content.Load<Texture2D>("GameEndScene/Win"));
+            return new(content.Load<Texture2D>("GameEndScene/Win"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {
             ClickableTrigger trigger = new(Point.Zero, Constants.WINDOW)
             {
-                Callback = () => { manager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS)); }
+                Callback = () => { manager.SetGameScene(GameMenuScene.NAME, Point.Zero); }
             };
 
             return new List<ITriggableObject>() { trigger };

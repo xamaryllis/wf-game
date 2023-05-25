@@ -51,7 +51,7 @@ namespace WardEscape.GameScenes
 
         protected override Background LoadBackground(ContentManager content)
         {
-            return new Background(content.Load<Texture2D>("TwinsRoomScene/Background"));
+            return new(content.Load<Texture2D>("TwinsRoomScene/Background"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {

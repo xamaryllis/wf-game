@@ -23,7 +23,7 @@ namespace WardEscape.GameScenes
 
         protected override Background LoadBackground(ContentManager content)
         {
-            return new Background(content.Load<Texture2D>("GameEndScene/Lose"));
+            return new(content.Load<Texture2D>("GameEndScene/Lose"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {

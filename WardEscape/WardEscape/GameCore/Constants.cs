@@ -17,6 +17,7 @@ namespace WardEscape.GameCore
         public static readonly Point WINDOW = new(WIDTH, HEIGHT);
         public static readonly Point DIALOG_LABEL_SIZE = new(500, 175);
         public static readonly Point TRIGGER_BUTTON_SIZE = new(175, 70);
+        public static readonly Point GAME_MENU_BUTTON_SIZE = new(350, 140);
 
         public static readonly int LEFTEST_HERO_POS = SCENE_TRIGGER_WIDTH;
         public static readonly int LOWEST_HERO_POS = FLOOR_LEVEL - HERO_SIZE.Y;

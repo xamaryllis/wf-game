@@ -106,6 +106,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ItemFont.spritefont
 
+#begin Fonts/MenuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/MenuFont.spritefont
+
 #begin GameEndScene/Lose.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -153,6 +160,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GameHero/Edna_2.png
+
+#begin GameMenuScene/Background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameMenuScene/Background.png
 
 #begin GuiElements/Button.png
 /importer:TextureImporter

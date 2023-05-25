@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 using WardEscape.GameCore;
 using WardEscape.GameScenes;
 using WardEscape.GameObjects;
-using WardEscape.GameObjects.GUIObjects;
-using WardEscape.GameObjects.SceneObjects;
-using WardEscape.GameCore.BaseObjects;
 using WardEscape.GameScenes.HallRoom;
+using WardEscape.GameObjects.SceneObjects;
+using WardEscape.GameScenes.GameMenu;
+using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape
-{ 
+{
     public class Main : Game
     {
         private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
-
-        Texture2D rect1;
 
         private GameHero gameHero;
         private SceneManager sceneManager;
@@ -49,32 +43,26 @@ namespace WardEscape
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameHero = new GameHero(Content, new Point(100, Constants.HEIGHT - 50));
-
-            int width = 82;
-            int height = 82;
-
-            Color[] color = new Color[width * height];
-            for (int i = 0; i < width * height; i++) 
-            {
-                color[i] = Color.Red;
-            }
-            rect1 = new(GraphicsDevice, width, height); rect1.SetData(color);
-
+            
+            gameHero = new GameHero(Content, Point.Zero);
             sceneManager = new SceneManager(gameHero);
 
             sceneManager.AddGameScene(new WinScene(Content, sceneManager), WinScene.NAME);
             sceneManager.AddGameScene(new LoseScene(Content, sceneManager), LoseScene.NAME);
-            sceneManager.AddGameScene(new LockRoomScene(Content, sceneManager), LockRoomScene.NAME);
-            sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
-            sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
-            sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
-            sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
-            sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
-            sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
-            sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager, GraphicsDevice), EricRoomScene.NAME);
+            sceneManager.AddGameScene(new GameMenuScene(Content, sceneManager, () => 
+            {
+                sceneManager.AddGameScene(new LockRoomScene(Content, sceneManager), LockRoomScene.NAME);
+                sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
+                sceneManager.AddGameScene(new TwinsRoomScene(Content, sceneManager), TwinsRoomScene.NAME);
+                sceneManager.AddGameScene(new ToiletRoomScene(Content, sceneManager), ToiletRoomScene.NAME);
+                sceneManager.AddGameScene(new StairsRoomScene(Content, sceneManager), StairsRoomScene.NAME);
+                sceneManager.AddGameScene(new StartingRoomScene(Content, sceneManager), StartingRoomScene.NAME);
+                sceneManager.AddGameScene(new DeadgirlRoomScene(Content, sceneManager), DeadgirlRoomScene.NAME);
+                sceneManager.AddGameScene(new EricRoomScene(Content, sceneManager, GraphicsDevice), EricRoomScene.NAME);
+            }),
+            GameMenuScene.NAME);
 
-            sceneManager.SetGameScene(StartingRoomScene.NAME, new(Constants.LEFTEST_HERO_POS, Constants.LOWEST_HERO_POS));
+            sceneManager.SetGameScene(GameMenuScene.NAME, Point.Zero);
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,7 +81,6 @@ namespace WardEscape
             _spriteBatch.Begin();
 
             sceneManager.Draw(gameTime, _spriteBatch);
-            //_spriteBatch.Draw(rect1, new Vector2(510, 136), Color.White);
 
             _spriteBatch.End();
 

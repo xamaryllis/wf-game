@@ -9,7 +9,7 @@ namespace WardEscape.GameObjects.GUIObjects
 {
     internal class GameButton : DrawableClickableObject
     {
-        TextlabelObject TextObject { get; set; }
+        protected TextlabelObject TextObject { get; set; }
         
         public GameButton(Point position, Point size, string text, ContentManager content)
             : base(position, size, content.Load<Texture2D>("GuiElements/Button")) 

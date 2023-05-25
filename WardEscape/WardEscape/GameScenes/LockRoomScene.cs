@@ -5,10 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using WardEscape.GameCore;
 using WardEscape.GameObjects;
 using WardEscape.GameCore.BaseObjects;
-using WardEscape.GameObjects.GUIObjects;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameObjects.GameTriggers;
 
@@ -21,15 +19,22 @@ namespace WardEscape.GameScenes
         Dictionary<string, Background> lockStates;
 
         public static string PASSWORD;
-        static readonly int MAX_ATTEMPTS = 1;
+        static readonly int MAX_ATTEMPTS = 3;
         public static readonly string NAME = "LockRoomScene";
         
         public LockRoomScene(ContentManager content, SceneManager manager) 
             : base(content, manager)
         {
-            Random random = new();
-            for (int _ = 0; _ < random.Next(3, 10); _++)
-                PASSWORD += random.Next(0, 10).ToString();
+            Random random = new(); PASSWORD = "";
+            for (int _ = 0; _ < random.Next(3, 10); _++) 
+            {
+                string nextNumber = random.Next(0, 10).ToString();
+                while (PASSWORD.IndexOf(nextNumber) != -1) 
+                {
+                    nextNumber = random.Next(0, 10).ToString();
+                }
+                PASSWORD += nextNumber;
+            } 
             isVisible = false;
         }
 

@@ -23,7 +23,7 @@ namespace WardEscape.GameScenes
         DepthStencilState maskStencil;
         DepthStencilState backgroundStencil;
 
-        public static bool haveFlashlight = true;
+        public static bool haveFlashlight = false;
         public static readonly string NAME = "EricRoom";
 
         static Queue<string> EricDialog
@@ -43,6 +43,7 @@ namespace WardEscape.GameScenes
         public EricRoomScene(ContentManager content, SceneManager manager, GraphicsDevice graphics) 
             : base(content, manager)
         {
+            haveFlashlight = false;
             flashlightMask = InitFlashlightMask(graphics);
 
             Matrix matrix = Matrix.CreateOrthographicOffCenter(0,
@@ -120,7 +121,7 @@ namespace WardEscape.GameScenes
 
         protected override Background LoadBackground(ContentManager content)
         {
-            return new Background(content.Load<Texture2D>("EricRoomScene/Background"));
+            return new(content.Load<Texture2D>("EricRoomScene/Background"));
         }
         protected override List<ITriggableObject> InitTriggers(SceneManager manager)
         {
