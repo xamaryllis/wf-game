@@ -11,7 +11,8 @@ namespace WardEscape.GameObjects.SceneObjects
         protected ItemOverlay ItemOverlay 
         { 
             get => overlay; 
-            set { 
+            set
+            { 
                 isLocked = value != null; 
                 overlay = value; 
             } 
