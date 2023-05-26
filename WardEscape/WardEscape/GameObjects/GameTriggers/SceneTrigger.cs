@@ -18,7 +18,7 @@ namespace WardEscape.GameObjects.GameTriggers
 
         public void Update(GameTime gameTime, RectangleObject hitbox)
         {
-            if (Hitbox.Intersects(hitbox)) Callback();
+            if (Hitbox.Intersects(hitbox)) Callback?.Invoke();
         }
     }
 }

@@ -8,7 +8,6 @@ using WardEscape.GameObjects;
 using WardEscape.GameScenes.HallRoom;
 using WardEscape.GameObjects.SceneObjects;
 using WardEscape.GameScenes.GameMenu;
-using WardEscape.GameCore.BaseObjects;
 
 namespace WardEscape
 {
@@ -49,7 +48,7 @@ namespace WardEscape
 
             sceneManager.AddGameScene(new WinScene(Content, sceneManager), WinScene.NAME);
             sceneManager.AddGameScene(new LoseScene(Content, sceneManager), LoseScene.NAME);
-            sceneManager.AddGameScene(new GameMenuScene(Content, sceneManager, () => 
+            sceneManager.AddGameScene(new GameMenuScene(Content, sceneManager, () =>
             {
                 sceneManager.AddGameScene(new LockRoomScene(Content, sceneManager), LockRoomScene.NAME);
                 sceneManager.AddGameScene(new HallRoomScene(Content, sceneManager), HallRoomScene.NAME);
